@@ -47,6 +47,6 @@ results/
 wasm/
 
 ## hete의 openapi facade용 security settings.
-security/ 
+local_security/
 
 *.lock
