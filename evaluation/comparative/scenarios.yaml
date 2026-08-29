@@ -1,0 +1,13 @@
+experiment_id: PBEA-COMPARATIVE-001
+iterations_per_mode_scenario: 30
+modes: [access-only, transition-only, full-pbea]
+scenarios:
+  S0: benign authorized transition
+  S1: post-authorization invariant violation
+  S2: controlled read outside unveiled path
+  S3: controlled helper execution after pledge
+  S4: controlled loopback connection denied by application policy
+  S5: invalid runtime policy startup
+  S6: repeated valid-actor policy violation
+  S7: fault after candidate creation before commit
+  S8: wrong deterministic policy digest

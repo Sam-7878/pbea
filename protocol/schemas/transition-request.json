@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["actor", "asset", "context", "operation", "payload"],
+  "properties": {
+    "actor": { "type": "string", "minLength": 1 },
+    "asset": { "type": "string", "minLength": 1 },
+    "operation": { "type": "string", "minLength": 1 },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["request_id", "expiry", "policy_digest"],
+      "properties": {
+        "request_id": { "type": "string", "minLength": 1 },
+        "expiry": { "type": "integer", "minimum": 0 },
+        "policy_digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "payload": {
+      "type": "object", "additionalProperties": false,
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "integer", "minimum": 1, "maximum": 1000000000 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "inject_internal_error": { "type": "boolean" }
+      }
+    }
+  }
+}
+

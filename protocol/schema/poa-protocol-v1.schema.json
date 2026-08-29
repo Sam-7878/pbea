@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.hete.io/poa/v1.json",
+  "title": "HETE POA Process Trust Protocol v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "protocol_id", "version", "mode", "operations", "process_constraints", "data_constraints", "failure_policy"],
+  "properties": {
+    "$schema": { "const": "https://schema.hete.io/poa/v1.json" },
+    "protocol_id": { "type": "string", "minLength": 1, "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" },
+    "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$" },
+    "extends": { "type": "string", "minLength": 1 },
+    "mode": { "enum": ["development", "production"] },
+    "operations": {
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "#/$defs/operation" }
+    },
+    "process_constraints": { "$ref": "#/$defs/processConstraints" },
+    "data_constraints": { "$ref": "#/$defs/dataConstraints" },
+    "failure_policy": { "$ref": "#/$defs/failurePolicy" },
+    "network_policy": { "$ref": "#/$defs/networkPolicy" },
+    "risk_evidence": { "$ref": "#/$defs/riskEvidencePolicy" },
+    "privilege_expansion": { "$ref": "#/$defs/privilegeExpansion" }
+  },
+  "$defs": {
+    "stringSet": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "operation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["name", "allowed_actors", "required_context"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "allowed_actors": { "$ref": "#/$defs/stringSet" },
+        "required_context": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "unveilPath": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "permissions"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^/" },
+        "permissions": { "type": "string", "pattern": "^[rwxc]{1,4}$" }
+      }
+    },
+    "processConstraints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["os_backend", "pledge_promises", "unveil_paths", "lock_after_initialization"],
+      "properties": {
+        "os_backend": { "enum": ["openbsd", "noop", "linux"] },
+        "pledge_promises": { "$ref": "#/$defs/stringSet" },
+        "unveil_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/unveilPath" } },
+        "lock_after_initialization": { "type": "boolean" }
+      }
+    },
+    "dataConstraints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["input_schema", "maximum_message_bytes", "canonical_encoding"],
+      "properties": {
+        "input_schema": { "type": "string", "minLength": 1 },
+        "maximum_message_bytes": { "type": "integer", "minimum": 1, "maximum": 16777216 },
+        "canonical_encoding": { "const": "JCS" },
+        "maximum_nesting_depth": { "type": "integer", "minimum": 1, "maximum": 128 }
+      }
+    },
+    "failurePolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["invalid_request", "policy_violation", "repeated_violation", "internal_error"],
+      "properties": {
+        "invalid_request": { "const": "reject" },
+        "policy_violation": { "const": "reject" },
+        "repeated_violation": { "const": "quarantine" },
+        "internal_error": { "const": "abort" },
+        "quarantine_threshold": { "type": "integer", "minimum": 1, "maximum": 1000000 }
+      }
+    },
+    "endpointRule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protocol", "address", "port"],
+      "properties": {
+        "protocol": { "enum": ["tcp", "udp"] },
+        "address": { "type": "string", "minLength": 1 },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+      }
+    },
+    "networkPolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inbound", "outbound", "dns_enabled"],
+      "properties": {
+        "inbound": { "type": "array", "items": { "$ref": "#/$defs/endpointRule" } },
+        "outbound": { "type": "array", "items": { "$ref": "#/$defs/endpointRule" } },
+        "dns_enabled": { "type": "boolean" }
+      }
+    },
+    "riskEvidencePolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["enabled", "minimum_occurrences", "minimum_severity_bps", "minimum_confidence_bps", "aggregation"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "minimum_occurrences": { "type": "integer", "minimum": 1, "maximum": 1000000 },
+        "minimum_severity_bps": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "minimum_confidence_bps": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "aggregation": { "enum": ["all_thresholds", "any_threshold"] }
+      }
+    },
+    "privilegeExpansion": {
+      "type": "object", "additionalProperties": false,
+      "required": ["approved", "approval_id", "reason"],
+      "properties": {
+        "approved": { "type": "boolean" },
+        "approval_id": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://schema.hete.io/poa/v1.json",
+  "protocol_id": "hete.invalid.missing",
+  "version": "1.0.0",
+  "mode": "production",
+  "operations": [],
+  "process_constraints": { "os_backend": "openbsd", "pledge_promises": ["stdio"], "unveil_paths": [], "lock_after_initialization": true },
+  "data_constraints": { "input_schema": "protocol/schemas/transition-request.json", "maximum_message_bytes": 65536, "canonical_encoding": "JCS" }
+}
+

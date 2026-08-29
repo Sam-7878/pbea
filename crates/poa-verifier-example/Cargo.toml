@@ -1,0 +1,22 @@
+[package]
+name = "poa-verifier-example"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+chrono.workspace = true
+hex.workspace = true
+jsonschema.workspace = true
+libc.workspace = true
+poa-core = { path = "../poa-core" }
+poa-protocol = { path = "../poa-protocol" }
+poa-sandbox = { path = "../poa-sandbox" }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+tempfile = "3"

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id","experiment_id","scenario_id","mode","iteration","seed","timestamp","source_commit","platform","build_profile","policy_digest","actor_authenticated","access_authorized","operation","expected_outcome","observed_outcome","malicious_effect_attempted","malicious_effect_succeeded","state_hash_before","state_hash_after","state_changed","capability_type","target","os_errno","exit_code","signal","listener_opened","business_loop_entered","duration_us","status","details"],
+  "properties": {
+    "run_id":{"type":"string","minLength":1},
+    "experiment_id":{"const":"PBEA-COMPARATIVE-001"},
+    "scenario_id":{"enum":["S0","S1","S2","S3","S4","S5","S6","S7","S8"]},
+    "mode":{"enum":["access-only","transition-only","full-pbea"]},
+    "iteration":{"type":"integer","minimum":1,"maximum":30},
+    "seed":{"type":"integer","minimum":0},
+    "timestamp":{"type":"string","minLength":1},
+    "source_commit":{"type":"string","pattern":"^[0-9a-f]{7,64}$"},
+    "platform":{"type":"string","minLength":1},
+    "build_profile":{"const":"release"},
+    "policy_digest":{"type":["string","null"],"pattern":"^sha256:[0-9a-f]{64}$"},
+    "actor_authenticated":{"const":true}, "access_authorized":{"const":true},
+    "operation":{"const":"verify_transition"},
+    "expected_outcome":{"enum":["success","commit","reject","quarantine","abort","terminated","startup-failure"]},
+    "observed_outcome":{"enum":["success","commit","reject","quarantine","abort","terminated","startup-failure"]},
+    "malicious_effect_attempted":{"type":"boolean"}, "malicious_effect_succeeded":{"type":"boolean"},
+    "state_hash_before":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"},
+    "state_hash_after":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"},
+    "state_changed":{"type":"boolean"},
+    "capability_type":{"type":["string","null"]}, "target":{"type":["string","null"]},
+    "os_errno":{"type":["integer","null"]}, "exit_code":{"type":["integer","null"]}, "signal":{"type":["integer","null"]},
+    "listener_opened":{"type":"boolean"}, "business_loop_entered":{"type":"boolean"},
+    "duration_us":{"type":"integer","minimum":0}, "status":{"enum":["passed","failed"]},
+    "details":{"type":["object","null"],"additionalProperties":{"type":"string"}}
+  }
+}

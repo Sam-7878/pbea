@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.hete.io/poa/v1.json",
+  "protocol_id": "hete.base.verifier",
+  "version": "1.0.0",
+  "mode": "production",
+  "operations": [{
+    "name": "verify_transition",
+    "allowed_actors": ["ubuntu-ledger-gateway"],
+    "required_context": ["request_id", "expiry", "policy_digest"]
+  }],
+  "process_constraints": {
+    "os_backend": "openbsd",
+    "pledge_promises": ["stdio", "inet", "rpath", "wpath", "cpath"],
+    "unveil_paths": [
+      { "path": "/var/hete/policies", "permissions": "r" },
+      { "path": "/var/hete/audit", "permissions": "rwc" }
+    ],
+    "lock_after_initialization": true
+  },
+  "data_constraints": {
+    "input_schema": "protocol/schemas/transition-request.json",
+    "maximum_message_bytes": 65536,
+    "canonical_encoding": "JCS",
+    "maximum_nesting_depth": 32
+  },
+  "failure_policy": {
+    "invalid_request": "reject",
+    "policy_violation": "reject",
+    "repeated_violation": "quarantine",
+    "internal_error": "abort",
+    "quarantine_threshold": 3
+  },
+  "network_policy": {
+    "inbound": [
+      { "protocol": "tcp", "address": "127.0.0.1", "port": 7878 },
+      { "protocol": "tcp", "address": "192.168.1.0/24", "port": 7878 }
+    ],
+    "outbound": [],
+    "dns_enabled": false
+  }
+}

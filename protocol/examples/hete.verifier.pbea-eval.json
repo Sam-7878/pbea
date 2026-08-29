@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schema.hete.io/poa/v1.json",
+  "protocol_id": "hete.verifier.pbea-eval",
+  "version": "1.0.0",
+  "mode": "production",
+  "operations": [{
+    "name": "verify_transition",
+    "allowed_actors": ["ubuntu-ledger-gateway"],
+    "required_context": ["expiry", "policy_digest", "request_id"]
+  }],
+  "process_constraints": {
+    "os_backend": "openbsd",
+    "pledge_promises": ["inet", "rpath", "stdio", "wpath", "cpath"],
+    "unveil_paths": [
+      { "path": "/tmp/pbea-eval/allowed", "permissions": "r" },
+      { "path": "/tmp/pbea-eval/bin", "permissions": "rx" },
+      { "path": "/tmp/pbea-eval/markers", "permissions": "rwc" },
+      { "path": "/tmp/pbea-eval/logs", "permissions": "rwc" }
+    ],
+    "lock_after_initialization": true
+  },
+  "data_constraints": {
+    "input_schema": "protocol/schemas/pbea-eval-transition-request.json",
+    "maximum_message_bytes": 65536,
+    "canonical_encoding": "JCS",
+    "maximum_nesting_depth": 24
+  },
+  "failure_policy": {
+    "invalid_request": "reject",
+    "policy_violation": "reject",
+    "repeated_violation": "quarantine",
+    "internal_error": "abort",
+    "quarantine_threshold": 3
+  },
+  "network_policy": {
+    "inbound": [{ "protocol": "tcp", "address": "127.0.0.1", "port": 7878 }],
+    "outbound": [{ "protocol": "tcp", "address": "127.0.0.1", "port": 7878 }],
+    "dns_enabled": false
+  }
+}
