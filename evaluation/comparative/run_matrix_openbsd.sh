@@ -22,7 +22,7 @@ printf '%s\n' 'synthetic-controlled-secret' > "$fixture_root/outside/secret.txt"
 cp "$helper_source" "$fixture_root/bin/marker-helper"
 chmod 755 "$fixture_root/bin/marker-helper"
 
-for mode in access-only transition-only full-pbea; do
+for mode in access-only transition-only runtime-only full-pbea; do
     : > "$output_dir/$mode.jsonl"
 done
 : > "$output_dir/../logs/matrix-stderr.log"
@@ -33,8 +33,8 @@ while [ "$iteration" -le 30 ]; do
     while [ "$scenario_number" -le 8 ]; do
         scenario="S$scenario_number"
         mode_index=0
-        for mode in access-only transition-only full-pbea; do
-            seed=$((200000 + iteration * 100 + scenario_number * 3 + mode_index))
+        for mode in access-only transition-only runtime-only full-pbea; do
+            seed=$((200000 + iteration * 100 + scenario_number * 4 + mode_index))
             printf '[%s %s %s]\n' "$mode" "$scenario" "$iteration" >> "$output_dir/../logs/matrix-stderr.log"
             "$binary" "$mode" "$scenario" "$iteration" "$seed" "$policy_schema" "$policy" "$request_schema" \
                 "$fixture_root" "$source_commit" >> "$output_dir/$mode.jsonl" \
@@ -46,4 +46,4 @@ while [ "$iteration" -le 30 ]; do
     iteration=$((iteration + 1))
 done
 
-wc -l "$output_dir/access-only.jsonl" "$output_dir/transition-only.jsonl" "$output_dir/full-pbea.jsonl"
+wc -l "$output_dir/access-only.jsonl" "$output_dir/transition-only.jsonl" "$output_dir/runtime-only.jsonl" "$output_dir/full-pbea.jsonl"

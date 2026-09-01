@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Run the frozen 3 x 9 x 30 PBEA comparison matrix without synthesizing records."""
+"""Run the frozen 4 x 9 x 30 PBEA comparison matrix without synthesizing records."""
 import argparse, json, pathlib, shutil, subprocess, sys
 
-MODES = ("access-only", "transition-only", "full-pbea")
+MODES = ("access-only", "transition-only", "runtime-only", "full-pbea")
 SCENARIOS = tuple(f"S{i}" for i in range(9))
 
 def main():
@@ -34,7 +34,7 @@ def main():
             for iteration in range(1, 31):
                 for scenario in SCENARIOS:
                     for mode_index, mode in enumerate(MODES):
-                        seed = 200_000 + iteration * 100 + int(scenario[1:]) * 3 + mode_index
+                        seed = 200_000 + iteration * 100 + int(scenario[1:]) * 4 + mode_index
                         cmd = [str(a.binary), mode, scenario, str(iteration), str(seed), str(a.policy_schema), str(a.policy),
                                str(a.request_schema), str(a.fixture_root), a.source_commit]
                         run = subprocess.run(cmd, text=True, capture_output=True)
@@ -45,6 +45,6 @@ def main():
                         files[mode].write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n")
     finally:
         for f in files.values(): f.close()
-    print(json.dumps({"records": 810, "output": str(a.output)}, sort_keys=True))
+    print(json.dumps({"records": 1080, "output": str(a.output)}, sort_keys=True))
 
 if __name__ == "__main__": main()

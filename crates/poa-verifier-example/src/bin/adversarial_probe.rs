@@ -68,7 +68,7 @@ fn main() -> anyhow::Result<()> {
                     path: format!("{}/missing-required-resource", fixture_root.display()),
                     permissions: "r".into(),
                 });
-            if mode == VerifierMode::FullPbea {
+            if mode.runtime_constraints_enabled() {
                 let mut startup = StartupEnforcement::default();
                 startup
                     .prepare(&OpenBsdBackend, &invalid)
@@ -78,8 +78,8 @@ fn main() -> anyhow::Result<()> {
                 None
             }
         };
-        let should_fail =
-            mode == VerifierMode::FullPbea || (mode == VerifierMode::TransitionOnly && malformed);
+        let should_fail = mode.runtime_constraints_enabled()
+            || (mode == VerifierMode::TransitionOnly && malformed);
         let observed = if failure.is_some() && should_fail {
             "startup-failure"
         } else {
@@ -113,7 +113,7 @@ fn main() -> anyhow::Result<()> {
         ));
     }
 
-    if mode == VerifierMode::FullPbea && scenario != ScenarioId::S3 {
+    if mode.runtime_constraints_enabled() && scenario != ScenarioId::S3 {
         let mut startup = StartupEnforcement::default();
         startup.prepare(&OpenBsdBackend, &policy)?;
         let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
@@ -134,7 +134,7 @@ fn main() -> anyhow::Result<()> {
         ),
         ScenarioId::S1 => {
             let out = transition(&mut verifier, mode, &digest, 0, false, false);
-            succeeded = mode == VerifierMode::AccessOnly;
+            succeeded = !mode.transition_guards_enabled();
             (out, Some("state-invariant".into()), Some("amount>0".into()))
         }
         ScenarioId::S2 => {
@@ -153,7 +153,7 @@ fn main() -> anyhow::Result<()> {
         ScenarioId::S3 => {
             let marker = fixture_root.join(format!("markers/s3-{mode}-{iteration}.marker"));
             let helper = fixture_root.join("bin/marker-helper");
-            let status = if mode == VerifierMode::FullPbea {
+            let status = if mode.runtime_constraints_enabled() {
                 listener_opened = true;
                 Command::new(std::env::current_exe()?)
                     .args([
@@ -169,7 +169,7 @@ fn main() -> anyhow::Result<()> {
             exit_code = status.code();
             signal = status.signal();
             succeeded = marker.exists();
-            let observed = if mode == VerifierMode::FullPbea && signal.is_some() {
+            let observed = if mode.runtime_constraints_enabled() && signal.is_some() {
                 "terminated"
             } else if succeeded {
                 "success"
@@ -185,7 +185,7 @@ fn main() -> anyhow::Result<()> {
         ScenarioId::S4 => {
             let denied = (Ipv4Addr::LOCALHOST, 8989);
             let _controlled_sink = TcpListener::bind(denied)?;
-            let allowed_by_app = mode != VerifierMode::FullPbea
+            let allowed_by_app = !mode.runtime_constraints_enabled()
                 || verifier.authorize_outbound(IpAddr::V4(denied.0), denied.1, "tcp");
             let result = if allowed_by_app {
                 TcpStream::connect(denied).map(|_| ())
@@ -207,7 +207,7 @@ fn main() -> anyhow::Result<()> {
             for _ in 0..3 {
                 last = transition(&mut verifier, mode, &digest, 100, false, true);
             }
-            succeeded = mode == VerifierMode::AccessOnly;
+            succeeded = !mode.transition_guards_enabled();
             (
                 last,
                 Some("repeated-transition".into()),
@@ -224,7 +224,7 @@ fn main() -> anyhow::Result<()> {
         }
         ScenarioId::S8 => {
             let out = transition(&mut verifier, mode, &digest, 100, false, true);
-            succeeded = mode == VerifierMode::AccessOnly;
+            succeeded = !mode.policy_digest_required();
             (
                 out,
                 Some("policy-digest".into()),
@@ -300,7 +300,7 @@ fn transition(
             inject_internal_error: fault,
         },
     };
-    if mode == VerifierMode::AccessOnly {
+    if !mode.transition_guards_enabled() {
         verifier
             .domain_state
             .committed_assets

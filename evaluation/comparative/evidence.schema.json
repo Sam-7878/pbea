@@ -7,7 +7,7 @@
     "run_id":{"type":"string","minLength":1},
     "experiment_id":{"const":"PBEA-COMPARATIVE-001"},
     "scenario_id":{"enum":["S0","S1","S2","S3","S4","S5","S6","S7","S8"]},
-    "mode":{"enum":["access-only","transition-only","full-pbea"]},
+    "mode":{"enum":["access-only","transition-only","runtime-only","full-pbea"]},
     "iteration":{"type":"integer","minimum":1,"maximum":30},
     "seed":{"type":"integer","minimum":0},
     "timestamp":{"type":"string","minLength":1},

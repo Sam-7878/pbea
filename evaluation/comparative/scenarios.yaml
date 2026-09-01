@@ -1,6 +1,6 @@
 experiment_id: PBEA-COMPARATIVE-001
 iterations_per_mode_scenario: 30
-modes: [access-only, transition-only, full-pbea]
+modes: [access-only, transition-only, runtime-only, full-pbea]
 scenarios:
   S0: benign authorized transition
   S1: post-authorization invariant violation
