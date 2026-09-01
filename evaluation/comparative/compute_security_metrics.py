@@ -217,6 +217,7 @@ def main():
     ]
     out = json.dumps(compute(records), indent=2, sort_keys=True) + "\n"
     if a.output:
+        a.output.parent.mkdir(parents=True, exist_ok=True)
         a.output.write_text(out)
     else:
         print(out, end="")

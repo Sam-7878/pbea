@@ -1,0 +1,12 @@
+\begin{tabular}{lll}
+\toprule
+Scenario & Full-PBEA Control Layer & Observable Evidence \\
+\midrule
+S1, S6, S8 & Transition Policy (AACO Kernel) & Reject/Quarantine with deterministic audit hash \\
+S2 & OpenBSD unveil(2) & Filesystem read denied with native OS errno (ENOENT) \\
+S3 & OpenBSD pledge(2) & Child execution killed via termination signal (SIGABRT/SIGKILL) \\
+S4 & Application Endpoint Allowlist & Socket connection denied before network dispatch \\
+S5 & Fail-Closed Startup Enforcement & Protected business loop not entered on malformed policy/resource \\
+S7 & Candidate/Commit Isolation & Abort with unchanged domain state hash \\
+\bottomrule
+\end{tabular}

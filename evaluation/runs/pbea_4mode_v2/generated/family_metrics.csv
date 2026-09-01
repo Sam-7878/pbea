@@ -1,0 +1,10 @@
+Effect Family,Metric,B0 Access-only,B1 Transition-only,B2 Runtime-only,P Full-PBEA
+State Integrity,S1 Invalid State Rate,100.0%,0.0%,100.0%,0.0%
+Runtime Confinement,S2 Filesystem Containment,0.0%,0.0%,100.0%,100.0%
+Runtime Confinement,S3 Process Exec Containment,0.0%,0.0%,100.0%,100.0%
+Runtime Confinement,S4 Egress Containment,0.0%,0.0%,100.0%,100.0%
+Runtime Confinement,Aggregate CCR S2-S4,0.0%,0.0%,100.0%,100.0%
+Policy Binding,S8 Digest Mismatch Accept Rate,100.0%,0.0%,100.0%,0.0%
+Fail-Closed Startup,S5 Aggregate FCR,0.0%,50.0%,100.0%,100.0%
+Outcome Semantics,S6 Quarantine Rate,0.0%,100.0%,0.0%,100.0%
+Benign Preservation,S0 BRSR,100.0%,100.0%,100.0%,100.0%

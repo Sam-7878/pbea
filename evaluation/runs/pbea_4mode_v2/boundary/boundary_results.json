@@ -1,0 +1,175 @@
+{
+  "experiment_id": "PBEA-BOUNDARY-001",
+  "source_commit": "62229cd",
+  "platform": "openbsd-x86_64",
+  "tests": [
+    {
+      "test_id": "BT1-access-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Allowed Endpoint Misuse",
+      "mode": "access-only",
+      "timestamp": "2026-09-01T03:36:16.245755268+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "127.0.0.1:8990",
+      "policy_allowed": true,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "permitted",
+      "claim_verification_interpretation": "PBEA permits data delivery through policy-declared endpoints as designed; it does not infer intent within allowed capabilities.",
+      "details": {
+        "destination": "127.0.0.1:8990",
+        "policy_rule": "explicitly_allowed"
+      }
+    },
+    {
+      "test_id": "BT1-transition-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Allowed Endpoint Misuse",
+      "mode": "transition-only",
+      "timestamp": "2026-09-01T03:36:16.311577993+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "127.0.0.1:8990",
+      "policy_allowed": true,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "permitted",
+      "claim_verification_interpretation": "PBEA permits data delivery through policy-declared endpoints as designed; it does not infer intent within allowed capabilities.",
+      "details": {
+        "destination": "127.0.0.1:8990",
+        "policy_rule": "explicitly_allowed"
+      }
+    },
+    {
+      "test_id": "BT1-runtime-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Allowed Endpoint Misuse",
+      "mode": "runtime-only",
+      "timestamp": "2026-09-01T03:36:16.376232446+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "127.0.0.1:8990",
+      "policy_allowed": true,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "permitted",
+      "claim_verification_interpretation": "PBEA permits data delivery through policy-declared endpoints as designed; it does not infer intent within allowed capabilities.",
+      "details": {
+        "destination": "127.0.0.1:8990",
+        "policy_rule": "explicitly_allowed"
+      }
+    },
+    {
+      "test_id": "BT1-full-pbea",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Allowed Endpoint Misuse",
+      "mode": "full-pbea",
+      "timestamp": "2026-09-01T03:36:16.441322389+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "127.0.0.1:8990",
+      "policy_allowed": true,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "permitted",
+      "claim_verification_interpretation": "PBEA permits data delivery through policy-declared endpoints as designed; it does not infer intent within allowed capabilities.",
+      "details": {
+        "destination": "127.0.0.1:8990",
+        "policy_rule": "explicitly_allowed"
+      }
+    },
+    {
+      "test_id": "BT2-access-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Symlink Traversal Across Unveil Boundary",
+      "mode": "access-only",
+      "timestamp": "2026-09-01T03:36:16.494282722+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+      "policy_allowed": false,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "read-succeeded",
+      "claim_verification_interpretation": "Host filesystem permitted symlink traversal to outside path (unveil disabled or non-OpenBSD environment).",
+      "details": {
+        "symlink_path": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+        "target_outside": "/tmp/pbea-boundary/outside/secret.txt"
+      }
+    },
+    {
+      "test_id": "BT2-transition-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Symlink Traversal Across Unveil Boundary",
+      "mode": "transition-only",
+      "timestamp": "2026-09-01T03:36:16.548322729+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+      "policy_allowed": false,
+      "operation_attempted": true,
+      "operation_succeeded": true,
+      "os_errno": null,
+      "outcome": "read-succeeded",
+      "claim_verification_interpretation": "Host filesystem permitted symlink traversal to outside path (unveil disabled or non-OpenBSD environment).",
+      "details": {
+        "symlink_path": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+        "target_outside": "/tmp/pbea-boundary/outside/secret.txt"
+      }
+    },
+    {
+      "test_id": "BT2-runtime-only",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Symlink Traversal Across Unveil Boundary",
+      "mode": "runtime-only",
+      "timestamp": "2026-09-01T03:36:16.603974297+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+      "policy_allowed": false,
+      "operation_attempted": true,
+      "operation_succeeded": false,
+      "os_errno": 2,
+      "outcome": "traversal-denied",
+      "claim_verification_interpretation": "OpenBSD unveil kernel enforcement prevented symlink resolution to un-unveiled path outside boundary.",
+      "details": {
+        "symlink_path": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+        "target_outside": "/tmp/pbea-boundary/outside/secret.txt"
+      }
+    },
+    {
+      "test_id": "BT2-full-pbea",
+      "experiment_id": "PBEA-BOUNDARY-001",
+      "test_name": "Symlink Traversal Across Unveil Boundary",
+      "mode": "full-pbea",
+      "timestamp": "2026-09-01T03:36:16.656826133+00:00",
+      "source_commit": "62229cd",
+      "platform": "openbsd-x86_64",
+      "policy_digest": "sha256:1abd6890307f5e26ccf5d67091e5ae03694db40401c5a6239f8750864cb03703",
+      "target": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+      "policy_allowed": false,
+      "operation_attempted": true,
+      "operation_succeeded": false,
+      "os_errno": 2,
+      "outcome": "traversal-denied",
+      "claim_verification_interpretation": "OpenBSD unveil kernel enforcement prevented symlink resolution to un-unveiled path outside boundary.",
+      "details": {
+        "symlink_path": "/tmp/pbea-boundary/allowed/symlink_to_outside.txt",
+        "target_outside": "/tmp/pbea-boundary/outside/secret.txt"
+      }
+    }
+  ]
+}

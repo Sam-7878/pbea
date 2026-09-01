@@ -1,0 +1,14 @@
+\begin{tabular}{lllccc}
+\toprule
+Test ID & Mode & Target & Allowed by Policy & Succeeded & Observed Outcome \\
+\midrule
+BT1-access-only & Access-only (B0) & 127.0.0.1:8990 & Yes & Yes & permitted \\
+BT1-transition-only & Transition-only (B1) & 127.0.0.1:8990 & Yes & Yes & permitted \\
+BT1-runtime-only & Runtime-only (B2) & 127.0.0.1:8990 & Yes & Yes & permitted \\
+BT1-full-pbea & Full-PBEA (P) & 127.0.0.1:8990 & Yes & Yes & permitted \\
+BT2-access-only & Access-only (B0) & /tmp/pbea-boundary/allowed/symlink_to_outside.txt & No & Yes & read-succeeded \\
+BT2-transition-only & Transition-only (B1) & /tmp/pbea-boundary/allowed/symlink_to_outside.txt & No & Yes & read-succeeded \\
+BT2-runtime-only & Runtime-only (B2) & /tmp/pbea-boundary/allowed/symlink_to_outside.txt & No & No & traversal-denied \\
+BT2-full-pbea & Full-PBEA (P) & /tmp/pbea-boundary/allowed/symlink_to_outside.txt & No & No & traversal-denied \\
+\bottomrule
+\end{tabular}

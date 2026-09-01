@@ -1,0 +1,62 @@
+{
+  "build_profile": "release",
+  "evaluation_tool_hashes": {
+    "compute_security_metrics.py": "sha256:aa99450e637a96089c23968039f2e25de46f6db077e7fabe9afad0285e9099fd",
+    "compute_wilson_ci.py": "sha256:4de0d5400885154b8c8ccead459bba4c8a4104ddfbd44b4f58a4cc55d76decb2",
+    "generate_report.py": "sha256:53093e6442b74895800cdabc446d5420cda124d54c934b9b94d013a718acb446",
+    "generate_tables.py": "sha256:7a321472e4a15f1d177d16d7f988e09c161038c562a188329583a296d83be141",
+    "run_matrix.py": "sha256:cc58c7dd6079a89d5c94a0615da77db63c6c023c2cde93f8ce1398baf28af39a",
+    "validate_records.py": "sha256:d9a0bf3c89cd5cb025f12a75e9ce678d1db23a5df811b2ad0e140238a78018a9"
+  },
+  "execution_timestamp": "2026-09-01T03:37:11.282394+00:00",
+  "experiment_date": "2026-09-01",
+  "experiment_id": "PBEA-COMPARATIVE-4MODE-002",
+  "generated_artifact_hashes": {
+    "aggregate_metrics.csv": "sha256:f881cbd8dd0f65151bc91e57216cd500b38b6d8b40ad1ab685bc20ab77f09276",
+    "attack_mechanisms.tex": "sha256:d8ddd1256a2e4470858bea1b6853f947897e17196ba66ea80739fc317ecbf1cf",
+    "boundary_results.csv": "sha256:dba1592577422e56e94b1afff3a6d25a36bdf03a26608d08e7e7a370e6cda8ae",
+    "boundary_results.json": "sha256:3adbbdbe77fc30c281116e2ddb927b075e315da2573a115a021c7edd273d904c",
+    "boundary_results.tex": "sha256:0a9da303eec9f51a68d234b17012b33009113f800507e79dab389705bf4b114b",
+    "comparative_security.tex": "sha256:cc9cdfaebc1aab09c1b967ac04c884c04672481ebdbe8a67f7827327897a8430",
+    "family_metrics.csv": "sha256:149b384f1691ff2d2ff088593449eedb3ae5013a8c5a9909aaf44bce8bccb756",
+    "family_metrics.tex": "sha256:b6f9ddb546e3f9f75f13d50e67d4be35ef8ade42572f578af08581f6862f5bbc",
+    "metrics.json": "sha256:0184654af6280ee25d96aa20ab2f5bc6360fbf2c61ec652693dd566318c91e60",
+    "overhead.tex": "sha256:c3fd6312e36631fe590cdafa086e6ca39bb1e67b006b059d062f0bf0512b8cbf",
+    "s0_benchmark.json": "sha256:82a5e2982a59fe185a9e00ba7cb1c66d8aa91a51e1e60fe9ebe1b75bf1536fac",
+    "s0_latency.csv": "sha256:fd9651f80c811e7abf64ebae40b19b5f44016d5288fde113a1665019bd708bec",
+    "s0_latency.tex": "sha256:b7b23b2dadfcd93ea980b011ca93f3d7e3a35c32399d457867437de67de483e8",
+    "scenario_matrix.csv": "sha256:04f7c1a9d21b40425c0c125e33c4cb2fd67791cb6af9d028f03aa62677f0cf3f",
+    "scenario_matrix.tex": "sha256:f45721d4156397928720d72701495106e3d4ed68871e06148200f4ed032eb255",
+    "security_metrics.tex": "sha256:8f3209f23baedc93a07ac667cd4f246e2ad1ef92ff73ce699ee8c05c0aae76ef",
+    "startup_latency.csv": "sha256:08ae98e91d42f0137eb53ac08474f741690f1eeb47ea6e01c033856dd9a4b001"
+  },
+  "iterations_per_cell": 30,
+  "modes": [
+    "access-only",
+    "transition-only",
+    "runtime-only",
+    "full-pbea"
+  ],
+  "platform": "openbsd-7.9-amd64",
+  "raw_evidence_hashes": {
+    "access-only.jsonl": "sha256:a82048eb597cdb803ff6a27645a9f3ddfa4795a8042d9e1b5a5131af8ed035a8",
+    "full-pbea.jsonl": "sha256:4086010a1869ec5569d8f99bbdca8d83b251fc92328dbe90ba873fee70d34ea8",
+    "runtime-only.jsonl": "sha256:14afcddac237061f777d888c51326003f7c56c572b9c567014b7dc368a258dc8",
+    "transition-only.jsonl": "sha256:416e113ec5f274f55d962b1ddd4842fc7a7bd44607b6300ef75d7742eeb35d6a"
+  },
+  "scenarios": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8"
+  ],
+  "source_commit": "62229cd31ad1915cdd850fe3cfd670cddf208d0c",
+  "source_commit_short": "62229cd",
+  "total_records": 1080,
+  "validation_status": "PASSED (1080/1080 cells validated)"
+}
