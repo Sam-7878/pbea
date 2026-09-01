@@ -36,20 +36,20 @@ def main():
     lines = [
         r"\begin{tabular}{lrrrrrr}",
         r"\toprule",
-        r"Mode & MESR & BRSR & SIVR & CER & FCR & OCA \\",
+        r"Mode & MESR & BRSR & SIVR & CCR & FCR & OCA \\",
         r"\midrule",
     ]
-    csv_rows = [["Mode", "MESR", "BRSR", "SIVR", "CER", "FCR", "OCA"]]
+    csv_rows = [["Mode", "MESR", "BRSR", "SIVR", "CCR", "FCR", "OCA"]]
     for mode in MODES:
         row = data[mode]
         m = row["metrics"]
         lines.append(
             LABEL[mode]
             + " & "
-            + " & ".join(pct(m[k]["rate"]) for k in ("MESR", "BRSR", "SIVR", "CER", "FCR", "OCA"))
+            + " & ".join(pct(m[k]["rate"]) for k in ("MESR", "BRSR", "SIVR", "CCR", "FCR", "OCA"))
             + r" \\"
         )
-        csv_rows.append([LABEL[mode]] + [pct_csv(m[k]["rate"]) for k in ("MESR", "BRSR", "SIVR", "CER", "FCR", "OCA")])
+        csv_rows.append([LABEL[mode]] + [pct_csv(m[k]["rate"]) for k in ("MESR", "BRSR", "SIVR", "CCR", "FCR", "OCA")])
     lines += [r"\bottomrule", r"\end{tabular}"]
     (a.output / "comparative_security.tex").write_text("\n".join(lines) + "\n")
     (a.output / "aggregate_metrics.csv").write_text("\n".join(",".join(r) for r in csv_rows) + "\n")
@@ -149,6 +149,10 @@ def main():
         row_c = [s_id, desc]
         for m in MODES:
             bd = data[m].get("scenario_breakdown", {}).get(s_id, {})
+            if not bd.get("security_applicable", True):
+                row_tex.append("not-applicable (0/0)")
+                row_c.append("not-applicable (0/0)")
+                continue
             succ = bd.get("malicious_succeeded", 0)
             tot = bd.get("total", 30)
             outs = bd.get("observed_outcomes", {})

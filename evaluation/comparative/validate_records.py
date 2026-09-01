@@ -93,6 +93,22 @@ def validate(records, require_complete=True):
             errors.append(f"record {i}: bad duration")
         if r["scenario_id"] == "S3" and r["mode"] in ("runtime-only", "full-pbea") and not r["signal"]:
             errors.append(f"record {i}: pledge termination lacks signal")
+        if r["scenario_id"] == "S7":
+            guarded = r["mode"] in ("transition-only", "full-pbea")
+            if r["capability_type"] != "fault-injection" or r["target"] != "after-candidate-before-commit":
+                errors.append(f"record {i}: S7 fault location metadata mismatch")
+            if guarded:
+                if r["observed_outcome"] != "abort":
+                    errors.append(f"record {i}: guarded S7 must abort")
+                if r["state_hash_before"] != r["state_hash_after"] or r["state_changed"]:
+                    errors.append(f"record {i}: S7 abort changed state")
+                if r["malicious_effect_succeeded"]:
+                    errors.append(f"record {i}: S7 abort cannot report malicious effect success")
+            else:
+                if r["malicious_effect_attempted"] or r["malicious_effect_succeeded"]:
+                    errors.append(f"record {i}: unguarded S7 is not-applicable and must not report a fault effect")
+                if r["observed_outcome"] != "success":
+                    errors.append(f"record {i}: unguarded S7 direct path must report success")
         if r["observed_outcome"] in ("reject", "quarantine", "abort", "terminated", "startup-failure") and r["state_changed"]:
             errors.append(f"record {i}: non-commit changed state")
     if len(commits) != 1:

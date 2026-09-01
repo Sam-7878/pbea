@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate human-readable Markdown evaluation report for 4-mode PBEA evaluation."""
-import argparse, json, pathlib
+import argparse, hashlib, json, pathlib
 
 MODES = ("access-only", "transition-only", "runtime-only", "full-pbea")
 LABEL = {
@@ -27,7 +27,9 @@ def main():
     a = p.parse_args()
 
     d = json.loads(a.metrics.read_text())
+    benchmark_hash = hashlib.sha256(a.benchmark.read_bytes()).hexdigest() if a.benchmark else "none"
     lines = [
+        f"<!-- canonical_metrics_sha256:{hashlib.sha256(a.metrics.read_bytes()).hexdigest()} benchmark_sha256:{benchmark_hash} -->",
         "# Comparative Evaluation Report (4-Mode Evaluation)",
         "",
         "All values below are generated from the validated 1080-record JSONL corpus (4 modes × 9 scenarios × 30 iterations).",
@@ -105,6 +107,12 @@ def main():
                 f"{s.get('p95_us', 0):.2f} | {s.get('p99_us', 0):.2f} | {p50_oh} | {p95_oh} |"
             )
         lines.append("")
+        lines += [
+            "Runtime-only and Access-only have identical reported P50 and P95 values. No measurable median or P95 increase was observed for Runtime-only relative to Access-only in this synthetic S0 path at the reported measurement resolution after the OpenBSD restrictions had been installed.",
+            "",
+            "The benchmark does not isolate component costs, so the Full-PBEA latency is not causally attributed to individual validation, canonicalization, digest, transition, or evidence-generation phases.",
+            "",
+        ]
 
     # Boundary tests section if available
     if a.boundary and a.boundary.exists():

@@ -41,6 +41,10 @@ def compute(records):
         s5_missing = [r for r in s5 if r["iteration"] % 2 == 0]
         s6 = [r for r in rs if r["scenario_id"] == "S6"]
         s7 = [r for r in rs if r["scenario_id"] == "S7"]
+        # S7's after-candidate fault point exists only in transition-guarded
+        # modes. B0/B2 explicitly record malicious_effect_attempted=false and
+        # execute their ordinary direct mutation, so rollback is not applicable.
+        s7_applicable = s7 if mode in ("transition-only", "full-pbea") else []
         s8 = [r for r in rs if r["scenario_id"] == "S8"]
         noncommit = [
             r for r in rs
@@ -59,8 +63,8 @@ def compute(records):
                 ),
                 "S7_rollback_failure_rate": ratio(
                     "S7-RFR",
-                    sum(r["state_changed"] for r in s7),
-                    len(s7)
+                    sum(r["state_changed"] for r in s7_applicable),
+                    len(s7_applicable)
                 ),
                 "SIVR_aggregate": ratio(
                     "SIVR",
@@ -127,8 +131,8 @@ def compute(records):
                 ),
                 "S7_abort_rate": ratio(
                     "S7-AR",
-                    sum(r["observed_outcome"] == "abort" for r in s7),
-                    len(s7)
+                    sum(r["observed_outcome"] == "abort" for r in s7_applicable),
+                    len(s7_applicable)
                 ),
             },
             "benign_preservation": {
@@ -157,8 +161,8 @@ def compute(records):
                 sum(r["state_changed"] for r in noncommit),
                 len(noncommit)
             ),
-            "CER": ratio(
-                "CER",
+            "CCR": ratio(
+                "CCR",
                 sum(not r["malicious_effect_succeeded"] for r in contained),
                 len(contained)
             ),
@@ -186,6 +190,9 @@ def compute(records):
                     for out in set(r["observed_outcome"] for r in s_records)
                 },
                 "state_changed_count": sum(r["state_changed"] for r in s_records),
+                "security_applicable": not (
+                    s_id == "S7" and mode in ("access-only", "runtime-only")
+                ),
             }
 
         result[mode] = {
