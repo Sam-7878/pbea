@@ -1,0 +1,5 @@
+Mode,Policy_Parse_us,Policy_Validate_us,Digest_us,Sandbox_Startup_us,Total_Startup_us
+access-only,17.70,46033.60,87.90,0.00,46142.50
+transition-only,20.10,45694.51,55.20,0.00,45770.81
+runtime-only,13.80,43004.87,56.40,101.90,43178.47
+full-pbea,19.10,42249.29,42.40,91.60,42403.89

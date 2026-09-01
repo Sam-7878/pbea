@@ -1,0 +1,5 @@
+Mode,n,Min_us,P50_us,P95_us,P99_us,P50_Overhead_pct,P95_Overhead_pct
+Access-only (B0),5000,0.50,0.70,0.70,1.00,Baseline,Baseline
+Transition-only (B1),5000,178.00,208.19,262.39,378.59,+29642.1%,+37331.2%
+Runtime-only (B2),5000,0.60,0.70,0.70,0.80,+0.0%,+0.0%
+Full-PBEA (P),5000,166.30,185.00,218.50,320.29,+26327.9%,+31069.0%
