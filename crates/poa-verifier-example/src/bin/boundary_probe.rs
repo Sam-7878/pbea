@@ -4,11 +4,14 @@ use std::{
     io::Write,
     net::{IpAddr, Ipv4Addr, TcpListener, TcpStream},
     path::Path,
+    process::Command,
+    str::FromStr,
 };
 
 use anyhow::bail;
 use chrono::Utc;
 use poa_protocol::policy_digest;
+use poa_sandbox::{OpenBsdBackend, StartupEnforcement};
 use poa_verifier_example::{Verifier, mode::VerifierMode};
 use serde::{Deserialize, Serialize};
 
@@ -40,25 +43,149 @@ pub struct BoundaryReport {
     pub tests: Vec<BoundaryTestRecord>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+struct ProbeOutput {
+    succeeded: bool,
+    os_errno: Option<i32>,
+}
+
+fn run_bt1_child(args: &[String]) -> anyhow::Result<()> {
+    if args.len() < 6 {
+        bail!("usage: --bt1-child MODE POLICY_SCHEMA POLICY REQUEST_SCHEMA PORT");
+    }
+    let mode = VerifierMode::from_str(&args[2])?;
+    let policy_schema: serde_json::Value = serde_json::from_slice(&fs::read(&args[3])?)?;
+    let policy_value: serde_json::Value = serde_json::from_slice(&fs::read(&args[4])?)?;
+    let request_schema: serde_json::Value = serde_json::from_slice(&fs::read(&args[5])?)?;
+    let allowed_port: u16 = args[6].parse()?;
+
+    let mut bt1_policy = poa_protocol::validate_value(&policy_value, &policy_schema)?;
+    if let Some(net) = &mut bt1_policy.network_policy {
+        net.outbound.push(poa_protocol::EndpointRule {
+            protocol: "tcp".into(),
+            address: "127.0.0.1".into(),
+            port: allowed_port,
+        });
+    }
+
+    if mode.runtime_constraints_enabled() {
+        let mut startup = StartupEnforcement::default();
+        startup.prepare(&OpenBsdBackend, &bt1_policy)?;
+        let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
+        startup.listener_initialized = true;
+        startup.enforce_after_listener(&OpenBsdBackend, &bt1_policy)?;
+        drop(listener);
+    }
+
+    let verifier = Verifier::new(bt1_policy, request_schema)?;
+    let allowed_by_policy =
+        verifier.authorize_outbound(IpAddr::V4(Ipv4Addr::LOCALHOST), allowed_port, "tcp");
+
+    let mut succeeded = false;
+    let mut os_errno = None;
+
+    if allowed_by_policy {
+        match TcpStream::connect((Ipv4Addr::LOCALHOST, allowed_port)) {
+            Ok(mut stream) => {
+                let _ = stream.write_all(b"marker-payload-to-allowed-endpoint");
+                succeeded = true;
+            }
+            Err(e) => {
+                os_errno = e.raw_os_error();
+            }
+        }
+    }
+
+    let out = ProbeOutput {
+        succeeded,
+        os_errno,
+    };
+    println!("{}", serde_json::to_string(&out)?);
+    Ok(())
+}
+
+fn run_bt2_child(args: &[String]) -> anyhow::Result<()> {
+    if args.len() < 6 {
+        bail!("usage: --bt2-child MODE POLICY_SCHEMA POLICY SYMLINK_PATH FIXTURE_ROOT");
+    }
+    let mode = VerifierMode::from_str(&args[2])?;
+    let policy_schema: serde_json::Value = serde_json::from_slice(&fs::read(&args[3])?)?;
+    let policy_value: serde_json::Value = serde_json::from_slice(&fs::read(&args[4])?)?;
+    let symlink_path = Path::new(&args[5]);
+    let fixture_root = Path::new(&args[6]);
+
+    let mut base_policy = poa_protocol::validate_value(&policy_value, &policy_schema)?;
+
+    // Make sure unveiled paths only include allowed dir
+    base_policy.process_constraints.unveil_paths = vec![poa_protocol::UnveilPath {
+        path: fixture_root.join("allowed").display().to_string(),
+        permissions: "r".into(),
+    }];
+
+    if mode.runtime_constraints_enabled() {
+        let mut startup = StartupEnforcement::default();
+        startup.prepare(&OpenBsdBackend, &base_policy)?;
+        let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
+        startup.listener_initialized = true;
+        startup.enforce_after_listener(&OpenBsdBackend, &base_policy)?;
+        drop(listener);
+    }
+
+    let mut succeeded = false;
+    let mut os_errno = None;
+
+    match fs::read_to_string(symlink_path) {
+        Ok(_) => {
+            succeeded = true;
+        }
+        Err(e) => {
+            os_errno = e.raw_os_error();
+        }
+    }
+
+    let out = ProbeOutput {
+        succeeded,
+        os_errno,
+    };
+    println!("{}", serde_json::to_string(&out)?);
+    Ok(())
+}
+
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("--bt1-child") {
+        return run_bt1_child(&args);
+    }
+    if args.get(1).map(String::as_str) == Some("--bt2-child") {
+        return run_bt2_child(&args);
+    }
     if args.len() < 7 {
         bail!(
             "usage: boundary_probe POLICY_SCHEMA POLICY REQUEST_SCHEMA FIXTURE_ROOT SOURCE_COMMIT OUTPUT_JSON"
         );
     }
-    let policy_schema_bytes = fs::read(&args[1])?;
-    let policy_bytes = fs::read(&args[2])?;
-    let request_schema_bytes = fs::read(&args[3])?;
+    let policy_schema = &args[1];
+    let policy = &args[2];
+    let request_schema = &args[3];
     let fixture_root = Path::new(&args[4]);
     let source_commit = &args[5];
     let output_path = Path::new(&args[6]);
 
-    let policy_schema: serde_json::Value = serde_json::from_slice(&policy_schema_bytes)?;
-    let policy_value: serde_json::Value = serde_json::from_slice(&policy_bytes)?;
-    let request_schema: serde_json::Value = serde_json::from_slice(&request_schema_bytes)?;
+    let policy_schema_bytes = fs::read(policy_schema)?;
+    let policy_bytes = fs::read(policy)?;
+    let policy_schema_val: serde_json::Value = serde_json::from_slice(&policy_schema_bytes)?;
+    let policy_val: serde_json::Value = serde_json::from_slice(&policy_bytes)?;
+    let mut base_policy = poa_protocol::validate_value(&policy_val, &policy_schema_val)?;
 
-    let base_policy = poa_protocol::validate_value(&policy_value, &policy_schema)?;
+    let allowed_port = 8990;
+    if let Some(net) = &mut base_policy.network_policy {
+        net.outbound.push(poa_protocol::EndpointRule {
+            protocol: "tcp".into(),
+            address: "127.0.0.1".into(),
+            port: allowed_port,
+        });
+    }
+    let bt1_digest = policy_digest(&base_policy)?;
 
     // Prepare fixture directories
     let allowed_dir = fixture_root.join("allowed");
@@ -78,22 +205,8 @@ fn main() -> anyhow::Result<()> {
         let _ = std::os::unix::fs::symlink(&outside_secret, &symlink_path);
     }
 
+    let current_exe = std::env::current_exe()?;
     let mut test_records = Vec::new();
-
-    // -------------------------------------------------------------
-    // BT1: Allowed Endpoint Misuse
-    // Policy explicitly permits loopback port 8990 in outbound rules.
-    // -------------------------------------------------------------
-    let allowed_port = 8990;
-    let mut bt1_policy = base_policy.clone();
-    if let Some(net) = &mut bt1_policy.network_policy {
-        net.outbound.push(poa_protocol::EndpointRule {
-            protocol: "tcp".into(),
-            address: "127.0.0.1".into(),
-            port: allowed_port,
-        });
-    }
-    let bt1_digest = policy_digest(&bt1_policy)?;
 
     let modes_to_test = [
         VerifierMode::AccessOnly,
@@ -102,25 +215,31 @@ fn main() -> anyhow::Result<()> {
         VerifierMode::FullPbea,
     ];
 
+    // -------------------------------------------------------------
+    // BT1: Allowed Endpoint Misuse
+    // -------------------------------------------------------------
     for &mode in &modes_to_test {
-        let verifier = Verifier::new(bt1_policy.clone(), request_schema.clone())?;
         let sink_listener = TcpListener::bind((Ipv4Addr::LOCALHOST, allowed_port))?;
 
-        let allowed_by_policy =
-            verifier.authorize_outbound(IpAddr::V4(Ipv4Addr::LOCALHOST), allowed_port, "tcp");
+        let child_output = Command::new(&current_exe)
+            .args([
+                "--bt1-child",
+                &mode.to_string(),
+                policy_schema,
+                policy,
+                request_schema,
+                &allowed_port.to_string(),
+            ])
+            .output()?;
 
         let mut connect_succeeded = false;
         let mut os_errno = None;
 
-        if allowed_by_policy {
-            match TcpStream::connect((Ipv4Addr::LOCALHOST, allowed_port)) {
-                Ok(mut stream) => {
-                    let _ = stream.write_all(b"marker-payload-to-allowed-endpoint");
-                    connect_succeeded = true;
-                }
-                Err(e) => {
-                    os_errno = e.raw_os_error();
-                }
+        if child_output.status.success() {
+            let stdout_str = String::from_utf8_lossy(&child_output.stdout);
+            if let Ok(p_out) = serde_json::from_str::<ProbeOutput>(stdout_str.trim()) {
+                connect_succeeded = p_out.succeeded;
+                os_errno = p_out.os_errno;
             }
         }
 
@@ -158,21 +277,30 @@ fn main() -> anyhow::Result<()> {
 
     // -------------------------------------------------------------
     // BT2: Filesystem Path / Symlink Probe
-    // Tests whether unveil blocks path traversal via symlink pointing outside unveiled tree.
     // -------------------------------------------------------------
     for &mode in &modes_to_test {
-        let digest = policy_digest(&base_policy)?;
+        let child_output = Command::new(&current_exe)
+            .args([
+                "--bt2-child",
+                &mode.to_string(),
+                policy_schema,
+                policy,
+                symlink_path.to_str().unwrap(),
+                fixture_root.to_str().unwrap(),
+            ])
+            .output()?;
+
         let mut read_succeeded = false;
         let mut os_errno = None;
 
-        let result = fs::read_to_string(&symlink_path);
-        match result {
-            Ok(_) => {
-                read_succeeded = true;
+        if child_output.status.success() {
+            let stdout_str = String::from_utf8_lossy(&child_output.stdout);
+            if let Ok(p_out) = serde_json::from_str::<ProbeOutput>(stdout_str.trim()) {
+                read_succeeded = p_out.succeeded;
+                os_errno = p_out.os_errno;
             }
-            Err(e) => {
-                os_errno = e.raw_os_error();
-            }
+        } else {
+            os_errno = child_output.status.code();
         }
 
         let mut details = BTreeMap::new();
@@ -196,7 +324,7 @@ fn main() -> anyhow::Result<()> {
             timestamp: Utc::now().to_rfc3339(),
             source_commit: source_commit.into(),
             platform: format!("{}-{}", std::env::consts::OS, std::env::consts::ARCH),
-            policy_digest: digest,
+            policy_digest: bt1_digest.clone(),
             target: symlink_path.display().to_string(),
             policy_allowed: false,
             operation_attempted: true,

@@ -1,7 +1,10 @@
 use std::{
+    collections::BTreeMap,
     fs,
     net::{Ipv4Addr, TcpListener},
     path::Path,
+    process::Command,
+    str::FromStr,
     time::Instant,
 };
 
@@ -45,6 +48,12 @@ pub struct StartupMeasurement {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ChildBenchResult {
+    pub startup: StartupMeasurement,
+    pub steady_state: LatencyStats,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BenchmarkReport {
     pub experiment_id: String,
     pub source_commit: String,
@@ -53,8 +62,8 @@ pub struct BenchmarkReport {
     pub measured_iterations: usize,
     pub batches: usize,
     pub startup: Vec<StartupMeasurement>,
-    pub steady_state: std::collections::BTreeMap<String, LatencyStats>,
-    pub overhead_vs_b0: std::collections::BTreeMap<String, OverheadStats>,
+    pub steady_state: BTreeMap<String, LatencyStats>,
+    pub overhead_vs_b0: BTreeMap<String, OverheadStats>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -123,86 +132,93 @@ fn compute_stats(mut samples: Vec<u64>) -> LatencyStats {
     }
 }
 
-fn main() -> anyhow::Result<()> {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() < 7 {
+fn run_child_bench(args: &[String]) -> anyhow::Result<()> {
+    if args.len() < 9 {
         bail!(
-            "usage: s0_benchmark POLICY_SCHEMA POLICY REQUEST_SCHEMA FIXTURE_ROOT SOURCE_COMMIT OUTPUT_JSON [WARMUP] [MEASURED] [BATCHES]"
+            "usage: --bench-child MODE POLICY_SCHEMA POLICY REQUEST_SCHEMA SOURCE_COMMIT WARMUP MEASURED BATCHES"
         );
     }
-    let policy_schema_bytes = fs::read(&args[1])?;
-    let policy_bytes = fs::read(&args[2])?;
-    let request_schema_bytes = fs::read(&args[3])?;
-    let _fixture_root = Path::new(&args[4]);
-    let source_commit = &args[5];
-    let output_path = Path::new(&args[6]);
-    let warmup_count: usize = args.get(7).and_then(|s| s.parse().ok()).unwrap_or(100);
-    let measured_count: usize = args.get(8).and_then(|s| s.parse().ok()).unwrap_or(1000);
-    let batches: usize = args.get(9).and_then(|s| s.parse().ok()).unwrap_or(5);
+    let mode = VerifierMode::from_str(&args[2])?;
+    let policy_schema_bytes = fs::read(&args[3])?;
+    let policy_bytes = fs::read(&args[4])?;
+    let request_schema_bytes = fs::read(&args[5])?;
+    let warmup_count: usize = args[7].parse()?;
+    let measured_count: usize = args[8].parse()?;
+    let batches: usize = args[9].parse()?;
 
     let policy_schema: serde_json::Value = serde_json::from_slice(&policy_schema_bytes)?;
     let request_schema: serde_json::Value = serde_json::from_slice(&request_schema_bytes)?;
 
-    let mut startup_measurements = Vec::new();
-    let mut steady_state_results = std::collections::BTreeMap::new();
+    // 1. Startup measurement
+    let t0 = Instant::now();
+    let policy_value: serde_json::Value = serde_json::from_slice(&policy_bytes)?;
+    let t1 = Instant::now();
+    let policy = poa_protocol::validate_value(&policy_value, &policy_schema)?;
+    let t2 = Instant::now();
+    let digest = policy_digest(&policy)?;
+    let t3 = Instant::now();
 
-    for &mode in &VerifierMode::ALL {
-        // Startup measurement
-        let t0 = Instant::now();
-        let policy_value: serde_json::Value = serde_json::from_slice(&policy_bytes)?;
-        let t1 = Instant::now();
-        let policy = poa_protocol::validate_value(&policy_value, &policy_schema)?;
-        let t2 = Instant::now();
-        let digest = policy_digest(&policy)?;
-        let t3 = Instant::now();
+    validate_mode_policy(mode, &policy)?;
 
-        validate_mode_policy(mode, &policy)?;
+    let mut sandbox_startup_ns = 0;
+    if mode.runtime_constraints_enabled() {
+        let sb_start = Instant::now();
+        let mut startup = StartupEnforcement::default();
+        startup.prepare(&OpenBsdBackend, &policy)?;
+        let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
+        startup.listener_initialized = true;
+        startup.enforce_after_listener(&OpenBsdBackend, &policy)?;
+        drop(listener);
+        sandbox_startup_ns = sb_start.elapsed().as_nanos() as u64;
+    }
+    let total_startup_ns = t0.elapsed().as_nanos() as u64;
 
-        let mut sandbox_startup_ns = 0;
-        if mode.runtime_constraints_enabled() {
-            let sb_start = Instant::now();
-            let mut startup = StartupEnforcement::default();
-            startup.prepare(&OpenBsdBackend, &policy)?;
-            let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
-            startup.listener_initialized = true;
-            startup.enforce_after_listener(&OpenBsdBackend, &policy)?;
-            drop(listener);
-            sandbox_startup_ns = sb_start.elapsed().as_nanos() as u64;
+    let startup = StartupMeasurement {
+        mode: mode.to_string(),
+        policy_parse_ns: (t1 - t0).as_nanos() as u64,
+        policy_validate_ns: (t2 - t1).as_nanos() as u64,
+        digest_computation_ns: (t3 - t2).as_nanos() as u64,
+        sandbox_startup_ns,
+        total_startup_ns,
+        total_startup_us: total_startup_ns as f64 / 1000.0,
+    };
+
+    // 2. Steady-State S0 Execution
+    let mut verifier = Verifier::new(policy.clone(), request_schema.clone())?;
+    let sample_request = TransitionRequest {
+        actor: "ubuntu-ledger-gateway".into(),
+        asset: "benchmark-asset".into(),
+        context: RequestContext {
+            request_id: "bench-req-001".into(),
+            expiry: 4_102_444_800,
+            policy_digest: digest.clone(),
+        },
+        operation: "verify_transition".into(),
+        payload: PaymentPayload {
+            amount: 100,
+            currency: "USD".into(),
+            inject_internal_error: false,
+        },
+    };
+    let request_bytes = serde_json::to_vec(&sample_request)?;
+
+    // Warmup phase
+    for _ in 0..warmup_count {
+        if mode.transition_guards_enabled() {
+            let _ = verifier.process_bytes(&request_bytes);
+        } else {
+            verifier
+                .domain_state
+                .committed_assets
+                .insert(sample_request.asset.clone(), 100);
         }
-        let total_startup_ns = t0.elapsed().as_nanos() as u64;
+    }
 
-        startup_measurements.push(StartupMeasurement {
-            mode: mode.to_string(),
-            policy_parse_ns: (t1 - t0).as_nanos() as u64,
-            policy_validate_ns: (t2 - t1).as_nanos() as u64,
-            digest_computation_ns: (t3 - t2).as_nanos() as u64,
-            sandbox_startup_ns,
-            total_startup_ns,
-            total_startup_us: total_startup_ns as f64 / 1000.0,
-        });
-
-        // Initialize verifier for steady-state S0 execution
-        let mut verifier = Verifier::new(policy.clone(), request_schema.clone())?;
-
-        let sample_request = TransitionRequest {
-            actor: "ubuntu-ledger-gateway".into(),
-            asset: "benchmark-asset".into(),
-            context: RequestContext {
-                request_id: "bench-req-001".into(),
-                expiry: 4_102_444_800,
-                policy_digest: digest.clone(),
-            },
-            operation: "verify_transition".into(),
-            payload: PaymentPayload {
-                amount: 100,
-                currency: "USD".into(),
-                inject_internal_error: false,
-            },
-        };
-        let request_bytes = serde_json::to_vec(&sample_request)?;
-
-        // Warmup phase
-        for _ in 0..warmup_count {
+    // Measured phase
+    let mut all_latencies = Vec::with_capacity(batches * measured_count);
+    for _ in 0..batches {
+        for _ in 0..measured_count {
+            let op_start = Instant::now();
             if mode.transition_guards_enabled() {
                 let _ = verifier.process_bytes(&request_bytes);
             } else {
@@ -211,27 +227,67 @@ fn main() -> anyhow::Result<()> {
                     .committed_assets
                     .insert(sample_request.asset.clone(), 100);
             }
+            all_latencies.push(op_start.elapsed().as_nanos() as u64);
+        }
+    }
+
+    let steady_state = compute_stats(all_latencies);
+    let child_res = ChildBenchResult {
+        startup,
+        steady_state,
+    };
+    println!("{}", serde_json::to_string(&child_res)?);
+    Ok(())
+}
+
+fn main() -> anyhow::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("--bench-child") {
+        return run_child_bench(&args);
+    }
+    if args.len() < 7 {
+        bail!(
+            "usage: s0_benchmark POLICY_SCHEMA POLICY REQUEST_SCHEMA FIXTURE_ROOT SOURCE_COMMIT OUTPUT_JSON [WARMUP] [MEASURED] [BATCHES]"
+        );
+    }
+    let policy_schema = &args[1];
+    let policy = &args[2];
+    let request_schema = &args[3];
+    let _fixture_root = Path::new(&args[4]);
+    let source_commit = &args[5];
+    let output_path = Path::new(&args[6]);
+    let warmup_count: usize = args.get(7).and_then(|s| s.parse().ok()).unwrap_or(100);
+    let measured_count: usize = args.get(8).and_then(|s| s.parse().ok()).unwrap_or(1000);
+    let batches: usize = args.get(9).and_then(|s| s.parse().ok()).unwrap_or(5);
+
+    let current_exe = std::env::current_exe()?;
+    let mut startup_measurements = Vec::new();
+    let mut steady_state_results = BTreeMap::new();
+
+    for &mode in &VerifierMode::ALL {
+        let child_output = Command::new(&current_exe)
+            .args([
+                "--bench-child",
+                &mode.to_string(),
+                policy_schema,
+                policy,
+                request_schema,
+                source_commit,
+                &warmup_count.to_string(),
+                &measured_count.to_string(),
+                &batches.to_string(),
+            ])
+            .output()?;
+
+        if !child_output.status.success() {
+            let stderr = String::from_utf8_lossy(&child_output.stderr);
+            bail!("Child bench failed for mode {mode}: {stderr}");
         }
 
-        // Measured phase
-        let mut all_latencies = Vec::with_capacity(batches * measured_count);
-        for _ in 0..batches {
-            for _ in 0..measured_count {
-                let op_start = Instant::now();
-                if mode.transition_guards_enabled() {
-                    let _ = verifier.process_bytes(&request_bytes);
-                } else {
-                    verifier
-                        .domain_state
-                        .committed_assets
-                        .insert(sample_request.asset.clone(), 100);
-                }
-                all_latencies.push(op_start.elapsed().as_nanos() as u64);
-            }
-        }
-
-        let stats = compute_stats(all_latencies);
-        steady_state_results.insert(mode.to_string(), stats);
+        let stdout_str = String::from_utf8_lossy(&child_output.stdout);
+        let child_res: ChildBenchResult = serde_json::from_str(stdout_str.trim())?;
+        startup_measurements.push(child_res.startup);
+        steady_state_results.insert(mode.to_string(), child_res.steady_state);
     }
 
     // Compute overhead vs B0
@@ -240,7 +296,7 @@ fn main() -> anyhow::Result<()> {
         .cloned()
         .unwrap_or_else(|| compute_stats(vec![1]));
 
-    let mut overhead_map = std::collections::BTreeMap::new();
+    let mut overhead_map = BTreeMap::new();
     for (mode_name, stats) in &steady_state_results {
         let p50_oh = if b0_stats.p50_ns > 0 {
             (stats.p50_ns as f64 - b0_stats.p50_ns as f64) / b0_stats.p50_ns as f64 * 100.0
