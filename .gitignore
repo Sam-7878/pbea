@@ -40,6 +40,7 @@ formal/tools/*.jar
 
 # docs/architecture/
 docs/work_reports/
+docs/papers/
 results/
 
 
