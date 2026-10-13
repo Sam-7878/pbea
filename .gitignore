@@ -31,23 +31,61 @@ target
 .cargo/
 .tools/
 __pycache__/
+*.egg-info/
 
 build/
 debug/
 release/
 target/
 formal/tools/*.jar
+wheelhouse/
 
 # docs/architecture/
-docs/work_reports/
 docs/papers/
-results/
-
+docs/work_reports/
+evaluation/uir_law/law200/results/
+evaluation/uir_law/law200/results/**
+evaluation/uir_law/law200/data/
 
 # data/
 wasm/
 
 ## hete의 openapi facade용 security settings.
 local_security/
+local_storage/
 
-*.lock
+.venv*/
+*.egg-info/
+scratch/
+tmp/
+local_storage/
+.env
+.env.*
+*.pem
+*.key
+*.pt
+*.safetensors
+*.gguf
+*.bin
+*.whl
+*.zip
+# Manuscripts remain local; code and numerical evidence are public candidates.
+projects/*/paper/
+archive/*/paper/
+*.tex
+*.bib
+*.pdf
+*.cls
+*.sty
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+!projects/*/results/mdpi_revision_2026_10_11/generated_metrics.tex
+!projects/*/results/mdpi_revision_2026_10_11/generated_tables/*.tex
+projects/uir_law/evaluation/law200/data/
+projects/uir_law/evaluation/law200/results/
+projects/*/results/*/human_labels_private*
+projects/*/results/*/adjudication_private*
