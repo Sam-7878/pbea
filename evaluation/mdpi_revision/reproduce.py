@@ -47,7 +47,10 @@ def main():
     manuscripts=repo/"docs/papers/_46_01_PBEA";inputs=[manuscripts/f for f in ("_46_PBEA.tex","references.bib","PBEA_Architecture_TikZ.tex")]
     with tarfile.open(report/"original_manuscript.tar.gz","w:gz") as archive:
         for f in inputs:archive.add(f,arcname=f.name)
-    full=lambda rev:subprocess.check_output(["git","-c",f"safe.directory={repo}","-C",str(repo),"rev-parse",rev],text=True).strip() if (repo/".git").exists() else rev
+    retained=json.loads((report/"source_provenance.json").read_text()) if (report/"source_provenance.json").exists() else {}
+    def full(rev):
+        if (repo/".git").exists():return subprocess.check_output(["git","-c",f"safe.directory={repo}","-C",str(repo),"rev-parse",rev],text=True).strip()
+        return next((value for key,value in retained.items() if key.endswith("commit") and isinstance(value,str) and value.startswith(rev)),rev)
     provenance={"original_manuscripts":{f.name:sha(f) for f in inputs},"historical_evaluation_commit":full("62229cd"),"historical_reporting_commit":full("f2be0bf"),"new_source_commit":full("afe94eb"),"raw_hashes":{str(f.relative_to(repo)):sha(f) for f in paths},"historical_record_count":len(records),"historical_raw_timing_samples_available":False,"new_native_campaign":"completed" if (report/"raw/security.jsonl").exists() else "not_run","historical_manifest_matching":sum(x["hash_matches"] for x in checks)}
     (report/"source_provenance.json").write_text(json.dumps(provenance,indent=2,sort_keys=True)+"\n")
     print(json.dumps({"historical_records_validated":len(records),"canonical_metrics_match":True,"historical_manifest_matches":sum(x["hash_matches"] for x in checks),"files_checked":len(checks)}))
