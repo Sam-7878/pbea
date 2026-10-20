@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-21",
+  "migration_source_tip": "3a0a88e4beace7eaeae58682cdc6d88c375b8f4d",
+  "layout_commit": "205c4d7ce98cca9c4d4f9b30a27a9463adf764c4",
+  "revision_files_byte_identical_at_move": 60,
+  "raw_data_normalized_or_rerun": false,
+  "test_count": 11,
+  "tests_passed": true,
+  "historical_records_revalidated": 1080,
+  "historical_manifest_hashes_matching": 37,
+  "new_security_records_revalidated": 540,
+  "benchmark_blocks_revalidated": 300,
+  "canonical_metrics_unchanged_except_newlines": true,
+  "relocated_manuscript_build_pages": 12,
+  "build_undefined_references_or_overfull_boxes": 0,
+  "pdf_text_unchanged_after_auto_date_normalization": true,
+  "current_layout_package_sha256": "2703033c91eaa88935ec4be6a88a0a08542f9a3a8844373b07726f66d6c2985a",
+  "package_files_verified_after_fresh_extraction": 231,
+  "fresh_extraction_tests_and_reanalysis_passed": true,
+  "original_package_and_historical_manifests_retained": true,
+  "status": "valid"
+}
