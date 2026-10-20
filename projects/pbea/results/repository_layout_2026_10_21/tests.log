@@ -1,0 +1,16 @@
+test_benchmark_duplicate_and_provenance (test_analyze.ValidatorTests.test_benchmark_duplicate_and_provenance) ... ok
+test_contradictory_hash_state_detected (test_analyze.ValidatorTests.test_contradictory_hash_state_detected) ... ok
+test_duplicate_detected (test_analyze.ValidatorTests.test_duplicate_detected) ... ok
+test_missing_after_state_reports_error (test_analyze.ValidatorTests.test_missing_after_state_reports_error) ... ok
+test_missing_detected (test_analyze.ValidatorTests.test_missing_detected) ... ok
+test_missing_field_reports_error_without_exception (test_analyze.ValidatorTests.test_missing_field_reports_error_without_exception) ... ok
+test_native_failure_is_preserved (test_analyze.ValidatorTests.test_native_failure_is_preserved) ... ok
+test_true_security_failure_is_preserved (test_analyze.ValidatorTests.test_true_security_failure_is_preserved) ... ok
+test_paper_evidence_and_bibliography_resolve (test_layout.LayoutTests.test_paper_evidence_and_bibliography_resolve) ... ok
+test_project_namespaces_documented (test_layout.LayoutTests.test_project_namespaces_documented) ... ok
+test_single_active_result_tree (test_layout.LayoutTests.test_single_active_result_tree) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.041s
+
+OK

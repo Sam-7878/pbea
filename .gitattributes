@@ -1,0 +1,5 @@
+# Evidence and publisher sources are byte-sensitive: do not change line endings
+# automatically when sharing the working directory between Windows and WSL.
+projects/pbea/results/** -text
+projects/pbea/paper/** -text
+projects/pbea/evaluation/** text eol=lf

@@ -1,0 +1,728 @@
+{
+  "benchmark_blocks": 300,
+  "cases": {
+    "BIND-aligned": {
+      "full-pbea": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BIND-equal-id-wrong-install": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BIND-inheritance-drift": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "not_installed": 30
+        },
+        "outcomes": {
+          "reject": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BIND-request-version": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "not_installed": 30
+        },
+        "outcomes": {
+          "reject": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BIND-runtime-epoch": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "not_installed": 30
+        },
+        "outcomes": {
+          "reject": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BIND-stale-evidence": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "not_installed": 30
+        },
+        "outcomes": {
+          "reject": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 30,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BOUND-preopened-fd": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    },
+    "BOUND-send-before-abort": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "abort": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 0,
+        "effects_succeeded": 30,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "abort": 30
+        }
+      }
+    },
+    "SERVICE-sequence": {
+      "full-pbea": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      },
+      "unbound-composition": {
+        "domain_changed": 0,
+        "effects_succeeded": 0,
+        "n": 30,
+        "native_status": {
+          "completed": 30
+        },
+        "outcomes": {
+          "commit": 30
+        }
+      }
+    }
+  },
+  "experiment_unit": "process block, not individual sequential operation",
+  "security_records": 540,
+  "source_commit": "afe94eb",
+  "timing_us": {
+    "allowed-io": {
+      "access-only": {
+        "block_medians_us": {
+          "max": 4.5,
+          "mean": 4.22485,
+          "min": 4.1,
+          "n": 20,
+          "p50": 4.2,
+          "p95": 4.4,
+          "p99": 4.5,
+          "population_stddev": 0.10427189218576607
+        },
+        "empty_timer_ns": {
+          "max": 7000,
+          "mean": 511.683,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 900,
+          "population_stddev": 205.74937305129268
+        },
+        "independent_blocks": 20,
+        "max": 133.697,
+        "mean": 4.4447538,
+        "min": 3.999,
+        "n": 10000,
+        "p50": 4.2,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 4.7,
+        "p99": 8.0,
+        "population_stddev": 2.750610052113087
+      },
+      "full-pbea": {
+        "block_medians_us": {
+          "max": 244.194,
+          "mean": 225.96959999999999,
+          "min": 194.0455,
+          "n": 20,
+          "p50": 228.095,
+          "p95": 240.844,
+          "p99": 244.194,
+          "population_stddev": 11.997994945614868
+        },
+        "empty_timer_ns": {
+          "max": 28599,
+          "mean": 516.984,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 700,
+          "population_stddev": 633.0500309959712
+        },
+        "independent_blocks": 20,
+        "max": 1408.466,
+        "mean": 237.04189989999998,
+        "min": 178.796,
+        "n": 10000,
+        "p50": 227.895,
+        "p50_delta_vs_b0_us": 223.69500000000002,
+        "p50_ratio_vs_b0": 54.260714285714286,
+        "p95": 305.893,
+        "p99": 425.589,
+        "population_stddev": 47.20865402084114
+      },
+      "runtime-only": {
+        "block_medians_us": {
+          "max": 5.1,
+          "mean": 4.234975,
+          "min": 4.0,
+          "n": 20,
+          "p50": 4.2,
+          "p95": 4.5,
+          "p99": 5.1,
+          "population_stddev": 0.23296300537853645
+        },
+        "empty_timer_ns": {
+          "max": 2900,
+          "mean": 497.1415,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 700,
+          "population_stddev": 86.69896468672506
+        },
+        "independent_blocks": 20,
+        "max": 161.096,
+        "mean": 4.4976212,
+        "min": 3.899,
+        "n": 10000,
+        "p50": 4.2,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 5.3,
+        "p99": 9.1,
+        "population_stddev": 2.9182408339461223
+      },
+      "transition-only": {
+        "block_medians_us": {
+          "max": 254.394,
+          "mean": 227.50192499999997,
+          "min": 186.2455,
+          "n": 20,
+          "p50": 229.7695,
+          "p95": 253.2935,
+          "p99": 254.394,
+          "population_stddev": 18.384460290742155
+        },
+        "empty_timer_ns": {
+          "max": 8700,
+          "mean": 511.0955,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 1000,
+          "population_stddev": 232.62780225018247
+        },
+        "independent_blocks": 20,
+        "max": 906.178,
+        "mean": 238.971488,
+        "min": 168.996,
+        "n": 10000,
+        "p50": 231.294,
+        "p50_delta_vs_b0_us": 227.09400000000002,
+        "p50_ratio_vs_b0": 55.07,
+        "p95": 316.292,
+        "p99": 433.19,
+        "population_stddev": 48.088245075482384
+      },
+      "unbound-composition": {
+        "block_medians_us": {
+          "max": 242.394,
+          "mean": 221.5297,
+          "min": 194.295,
+          "n": 20,
+          "p50": 225.34449999999998,
+          "p95": 238.6445,
+          "p99": 242.394,
+          "population_stddev": 12.477641047489707
+        },
+        "empty_timer_ns": {
+          "max": 12800,
+          "mean": 513.1315,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 501,
+          "p99": 700,
+          "population_stddev": 363.43440702243646
+        },
+        "independent_blocks": 20,
+        "max": 11167.729,
+        "mean": 233.55754679999998,
+        "min": 173.296,
+        "n": 10000,
+        "p50": 223.795,
+        "p50_delta_vs_b0_us": 219.595,
+        "p50_ratio_vs_b0": 53.284523809523805,
+        "p95": 305.292,
+        "p99": 424.889,
+        "population_stddev": 118.06691749908697
+      }
+    },
+    "state1": {
+      "access-only": {
+        "block_medians_us": {
+          "max": 0.7,
+          "mean": 0.6199999999999999,
+          "min": 0.6,
+          "n": 20,
+          "p50": 0.6,
+          "p95": 0.7,
+          "p99": 0.7,
+          "population_stddev": 0.039999999999999994
+        },
+        "empty_timer_ns": {
+          "max": 11300,
+          "mean": 509.638,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 800,
+          "population_stddev": 268.40791336322405
+        },
+        "independent_blocks": 20,
+        "max": 272.093,
+        "mean": 0.6871619999999999,
+        "min": 0.499,
+        "n": 10000,
+        "p50": 0.6,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 0.7,
+        "p99": 0.899,
+        "population_stddev": 2.741169382463623
+      },
+      "full-pbea": {
+        "block_medians_us": {
+          "max": 232.644,
+          "mean": 214.52482500000002,
+          "min": 186.5955,
+          "n": 20,
+          "p50": 215.22,
+          "p95": 230.144,
+          "p99": 232.644,
+          "population_stddev": 13.154212850143297
+        },
+        "empty_timer_ns": {
+          "max": 17399,
+          "mean": 516.7185,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 700,
+          "population_stddev": 396.1008662673562
+        },
+        "independent_blocks": 20,
+        "max": 774.981,
+        "mean": 225.8155965,
+        "min": 170.495,
+        "n": 10000,
+        "p50": 217.494,
+        "p50_delta_vs_b0_us": 216.894,
+        "p50_ratio_vs_b0": 362.49,
+        "p95": 298.993,
+        "p99": 407.191,
+        "population_stddev": 41.7793263989678
+      },
+      "runtime-only": {
+        "block_medians_us": {
+          "max": 0.7,
+          "mean": 0.61995,
+          "min": 0.6,
+          "n": 20,
+          "p50": 0.6,
+          "p95": 0.7,
+          "p99": 0.7,
+          "population_stddev": 0.03990046992204477
+        },
+        "empty_timer_ns": {
+          "max": 12300,
+          "mean": 519.832,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 800,
+          "population_stddev": 313.4775825732998
+        },
+        "independent_blocks": 20,
+        "max": 86.398,
+        "mean": 0.6769831999999999,
+        "min": 0.499,
+        "n": 10000,
+        "p50": 0.6,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 0.7,
+        "p99": 0.899,
+        "population_stddev": 1.1443075479597955
+      },
+      "transition-only": {
+        "block_medians_us": {
+          "max": 244.294,
+          "mean": 221.63955,
+          "min": 184.395,
+          "n": 20,
+          "p50": 223.86925,
+          "p95": 240.594,
+          "p99": 244.294,
+          "population_stddev": 12.584187721998587
+        },
+        "empty_timer_ns": {
+          "max": 14099,
+          "mean": 518.7285,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 901,
+          "population_stddev": 341.23311062637225
+        },
+        "independent_blocks": 20,
+        "max": 900.778,
+        "mean": 232.23585839999998,
+        "min": 169.795,
+        "n": 10000,
+        "p50": 222.895,
+        "p50_delta_vs_b0_us": 222.29500000000002,
+        "p50_ratio_vs_b0": 371.4916666666667,
+        "p95": 304.792,
+        "p99": 430.989,
+        "population_stddev": 45.404214408783126
+      },
+      "unbound-composition": {
+        "block_medians_us": {
+          "max": 235.744,
+          "mean": 212.61487499999998,
+          "min": 175.396,
+          "n": 20,
+          "p50": 213.995,
+          "p95": 223.0945,
+          "p99": 235.744,
+          "population_stddev": 12.337178573193915
+        },
+        "empty_timer_ns": {
+          "max": 9700,
+          "mean": 500.249,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 501,
+          "p99": 700,
+          "population_stddev": 220.1936488616327
+        },
+        "independent_blocks": 20,
+        "max": 1310.368,
+        "mean": 223.1399256,
+        "min": 159.197,
+        "n": 10000,
+        "p50": 214.895,
+        "p50_delta_vs_b0_us": 214.29500000000002,
+        "p50_ratio_vs_b0": 358.15833333333336,
+        "p95": 290.993,
+        "p99": 399.69,
+        "population_stddev": 42.89108293684207
+      }
+    },
+    "state128": {
+      "access-only": {
+        "block_medians_us": {
+          "max": 0.7,
+          "mean": 0.6449999999999999,
+          "min": 0.6,
+          "n": 20,
+          "p50": 0.6,
+          "p95": 0.7,
+          "p99": 0.7,
+          "population_stddev": 0.04974937185533099
+        },
+        "empty_timer_ns": {
+          "max": 4900,
+          "mean": 505.482,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 899,
+          "population_stddev": 138.41366867473747
+        },
+        "independent_blocks": 20,
+        "max": 332.492,
+        "mean": 0.740965,
+        "min": 0.5,
+        "n": 10000,
+        "p50": 0.7,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 0.8,
+        "p99": 2.7,
+        "population_stddev": 3.3818811345721485
+      },
+      "full-pbea": {
+        "block_medians_us": {
+          "max": 238.1445,
+          "mean": 215.1672,
+          "min": 193.195,
+          "n": 20,
+          "p50": 216.2695,
+          "p95": 227.945,
+          "p99": 238.1445,
+          "population_stddev": 11.953413837059268
+        },
+        "empty_timer_ns": {
+          "max": 2900,
+          "mean": 507.4405,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 700,
+          "population_stddev": 123.45544321636855
+        },
+        "independent_blocks": 20,
+        "max": 779.781,
+        "mean": 225.64378440000002,
+        "min": 170.695,
+        "n": 10000,
+        "p50": 217.595,
+        "p50_delta_vs_b0_us": 216.895,
+        "p50_ratio_vs_b0": 310.85,
+        "p95": 290.792,
+        "p99": 404.79,
+        "population_stddev": 41.127292737391755
+      },
+      "runtime-only": {
+        "block_medians_us": {
+          "max": 0.7,
+          "mean": 0.65495,
+          "min": 0.6,
+          "n": 20,
+          "p50": 0.6995,
+          "p95": 0.7,
+          "p99": 0.7,
+          "population_stddev": 0.04970460240259446
+        },
+        "empty_timer_ns": {
+          "max": 13500,
+          "mean": 505.6425,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 700,
+          "population_stddev": 304.07740740434826
+        },
+        "independent_blocks": 20,
+        "max": 50.998,
+        "mean": 0.6906224,
+        "min": 0.5,
+        "n": 10000,
+        "p50": 0.7,
+        "p50_delta_vs_b0_us": 0.0,
+        "p50_ratio_vs_b0": 1.0,
+        "p95": 0.701,
+        "p99": 0.9,
+        "population_stddev": 0.611051317990756
+      },
+      "transition-only": {
+        "block_medians_us": {
+          "max": 240.094,
+          "mean": 215.969675,
+          "min": 197.395,
+          "n": 20,
+          "p50": 215.69475,
+          "p95": 235.0945,
+          "p99": 240.094,
+          "population_stddev": 11.63021362258127
+        },
+        "empty_timer_ns": {
+          "max": 3700,
+          "mean": 520.379,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 600,
+          "p99": 1000,
+          "population_stddev": 151.71978894989275
+        },
+        "independent_blocks": 20,
+        "max": 806.78,
+        "mean": 225.5732964,
+        "min": 181.095,
+        "n": 10000,
+        "p50": 216.294,
+        "p50_delta_vs_b0_us": 215.59400000000002,
+        "p50_ratio_vs_b0": 308.9914285714286,
+        "p95": 289.093,
+        "p99": 396.591,
+        "population_stddev": 40.15802033224182
+      },
+      "unbound-composition": {
+        "block_medians_us": {
+          "max": 232.9945,
+          "mean": 213.74745,
+          "min": 191.1955,
+          "n": 20,
+          "p50": 214.345,
+          "p95": 229.095,
+          "p99": 232.9945,
+          "population_stddev": 10.665767864879673
+        },
+        "empty_timer_ns": {
+          "max": 3800,
+          "mean": 495.497,
+          "min": 399,
+          "n": 2000,
+          "p50": 500.0,
+          "p95": 501,
+          "p99": 700,
+          "population_stddev": 103.53558321176348
+        },
+        "independent_blocks": 20,
+        "max": 728.082,
+        "mean": 224.3161304,
+        "min": 173.296,
+        "n": 10000,
+        "p50": 215.495,
+        "p50_delta_vs_b0_us": 214.79500000000002,
+        "p50_ratio_vs_b0": 307.85,
+        "p95": 290.293,
+        "p99": 415.69,
+        "population_stddev": 41.96880189115953
+      }
+    }
+  },
+  "validation": "valid"
+}

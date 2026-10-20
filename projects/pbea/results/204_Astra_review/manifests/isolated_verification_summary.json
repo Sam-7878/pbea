@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-20",
+  "scope": "local artifact extracted into a fresh directory without .git; not a second independent OS installation",
+  "artifact_sha256": "c6b5b4783775e616f5353fa76b87c34a0654db4f206360ec4e870f049e05ad08",
+  "package_input_revision": "71aa7af5c05e0dece67ca7e7e4c20efa2b2298c9",
+  "manifest_files_checked": 223,
+  "manifest_mismatches": [],
+  "historical_records_revalidated": 1080,
+  "historical_canonical_metrics_match": true,
+  "historical_manifest_hashes_match": 37,
+  "new_security_records_validated": 540,
+  "new_benchmark_blocks_validated": 300,
+  "validator_tests_passed": 8,
+  "new_metrics_byte_identical_after_reanalysis": true,
+  "full_source_provenance_preserved_without_git": true,
+  "complete_latex_bibtex_rebuild": "passed",
+  "rebuilt_pdf_text_identical_to_review_pdf": true,
+  "public_archive_or_submission": "not_performed",
+  "status": "valid"
+}

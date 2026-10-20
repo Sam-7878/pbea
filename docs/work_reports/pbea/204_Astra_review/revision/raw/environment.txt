@@ -1,8 +1,0 @@
-OpenBSD su.mshome.net 7.9 GENERIC.MP#449 amd64
-rustc 1.94.1 (e408947bf 2026-03-25) (built from a source tarball)
-cargo 1.94.1 (29ea6fb6a 2026-03-24) (built from a source tarball)
-hw.model=13th Gen Intel(R) Core(TM) i9-13900HX
-hw.ncpu=16
-hw.physmem=3206479872
-SHA256 (target/release/mdpi_probe) = abc5b4d80704fef54dc8b954e53839f66f4c6231581eee9469f263073b286c50
-SHA256 (Cargo.lock) = b101afcb54e39f10b26a4097e58fde859fae842d653a88a8193675645d17c52c

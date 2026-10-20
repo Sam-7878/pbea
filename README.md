@@ -8,6 +8,8 @@ PBEA (Policy-Bound Execution Architecture) is a cross-layer security architectur
 
 PBEA was originally designed and validated inside `hete_sandbox` and has been separated into this standalone repository to serve as an independent policy-bound execution framework and evaluation service.
 
+This repository is managed on **`main`** and hosts shared framework code plus three project namespaces: `pbea` (base research project), `open_banking`, and `swarm_drones` (planned derivatives). See [project layout and storage rules](projects/README.md). Project-wide assets belong in `projects/<project>/`; each milestone/task stores its data, reports and pictures in `projects/<project>/results/<task>/`.
+
 ### Key Pillars
 
 1. **AACO 5-Stage Transition Kernel**:
@@ -44,6 +46,11 @@ pbea/
 │   └── examples/                    # Protocol instance configurations (hete.verifier.pbea-eval.json)
 ├── evaluation/
 │   └── comparative/                 # 3 × 9 × 30 comparative evaluation harness & scripts
+├── projects/
+│   ├── pbea/                        # PBEA-wide evaluation tools, manuscript and resources
+│   │   └── results/204_Astra_review/ # MDPI revision raw data, reports, figures and packages
+│   ├── open_banking/                # Planned derivative project
+│   └── swarm_drones/                # Planned derivative project
 └── docs/
     ├── architecture/                # Architecture specifications
     └── work_reports/

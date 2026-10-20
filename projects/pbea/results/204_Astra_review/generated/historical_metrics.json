@@ -1,0 +1,1199 @@
+{
+  "access-only": {
+    "effect_families": {
+      "benign_preservation": {
+        "S0_BRSR": {
+          "denominator": 30,
+          "metric": "BRSR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "fail_closed_startup": {
+        "S5_aggregate_FCR": {
+          "denominator": 30,
+          "metric": "FCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S5_malformed_policy_FCR": {
+          "denominator": 15,
+          "metric": "S5-Malformed-FCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.20388330103584862,
+          "wilson_95_low": 0.0
+        },
+        "S5_missing_resource_FCR": {
+          "denominator": 15,
+          "metric": "S5-Missing-FCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.20388330103584862,
+          "wilson_95_low": 0.0
+        }
+      },
+      "outcome_quarantine_semantics": {
+        "S6_quarantine_rate": {
+          "denominator": 30,
+          "metric": "S6-QR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S7_abort_rate": {
+          "denominator": 0,
+          "metric": "S7-AR",
+          "numerator": 0,
+          "percent": null,
+          "rate": null,
+          "wilson_95_high": null,
+          "wilson_95_low": null
+        }
+      },
+      "policy_binding": {
+        "S8_digest_mismatch_acceptance_rate": {
+          "denominator": 30,
+          "metric": "S8-DMAR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S8_digest_rejection_rate": {
+          "denominator": 30,
+          "metric": "S8-DRR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        }
+      },
+      "runtime_capability_containment": {
+        "S2_filesystem_containment": {
+          "denominator": 30,
+          "metric": "S2-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S3_child_execution_containment": {
+          "denominator": 30,
+          "metric": "S3-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S4_network_containment": {
+          "denominator": 30,
+          "metric": "S4-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "aggregate_CCR": {
+          "denominator": 90,
+          "metric": "CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.04093562556432678,
+          "wilson_95_low": 0.0
+        }
+      },
+      "state_integrity": {
+        "S1_invalid_state_propagation_rate": {
+          "denominator": 30,
+          "metric": "S1-ISPR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S7_rollback_failure_rate": {
+          "denominator": 0,
+          "metric": "S7-RFR",
+          "numerator": 0,
+          "percent": null,
+          "rate": null,
+          "wilson_95_high": null,
+          "wilson_95_low": null
+        },
+        "SIVR_aggregate": {
+          "denominator": 0,
+          "metric": "SIVR",
+          "numerator": 0,
+          "percent": null,
+          "rate": null,
+          "wilson_95_high": null,
+          "wilson_95_low": null
+        }
+      }
+    },
+    "latency_us": {
+      "count": 270,
+      "max": 26163,
+      "mean": 10131.592592592593,
+      "min": 8382,
+      "p50": 9012,
+      "p95": 21944,
+      "population_stddev": 3378.9345127460833
+    },
+    "metrics": {
+      "BRSR": {
+        "denominator": 30,
+        "metric": "BRSR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "CCR": {
+        "denominator": 90,
+        "metric": "CCR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.04093562556432678,
+        "wilson_95_low": 0.0
+      },
+      "FCR": {
+        "denominator": 30,
+        "metric": "FCR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.11351339317396876,
+        "wilson_95_low": 0.0
+      },
+      "MESR": {
+        "denominator": 180,
+        "metric": "MESR",
+        "numerator": 180,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9791045020783868
+      },
+      "OCA": {
+        "denominator": 270,
+        "metric": "OCA",
+        "numerator": 270,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9859719604283536
+      },
+      "SIVR": {
+        "denominator": 0,
+        "metric": "SIVR",
+        "numerator": 0,
+        "percent": null,
+        "rate": null,
+        "wilson_95_high": null,
+        "wilson_95_low": null
+      }
+    },
+    "scenario_breakdown": {
+      "S0": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S1": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S2": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S3": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S4": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S5": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S6": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S7": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": false,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S8": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      }
+    }
+  },
+  "full-pbea": {
+    "effect_families": {
+      "benign_preservation": {
+        "S0_BRSR": {
+          "denominator": 30,
+          "metric": "BRSR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "fail_closed_startup": {
+        "S5_aggregate_FCR": {
+          "denominator": 30,
+          "metric": "FCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S5_malformed_policy_FCR": {
+          "denominator": 15,
+          "metric": "S5-Malformed-FCR",
+          "numerator": 15,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.7961166989641515
+        },
+        "S5_missing_resource_FCR": {
+          "denominator": 15,
+          "metric": "S5-Missing-FCR",
+          "numerator": 15,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.7961166989641515
+        }
+      },
+      "outcome_quarantine_semantics": {
+        "S6_quarantine_rate": {
+          "denominator": 30,
+          "metric": "S6-QR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S7_abort_rate": {
+          "denominator": 30,
+          "metric": "S7-AR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "policy_binding": {
+        "S8_digest_mismatch_acceptance_rate": {
+          "denominator": 30,
+          "metric": "S8-DMAR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S8_digest_rejection_rate": {
+          "denominator": 30,
+          "metric": "S8-DRR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "runtime_capability_containment": {
+        "S2_filesystem_containment": {
+          "denominator": 30,
+          "metric": "S2-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S3_child_execution_containment": {
+          "denominator": 30,
+          "metric": "S3-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S4_network_containment": {
+          "denominator": 30,
+          "metric": "S4-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "aggregate_CCR": {
+          "denominator": 90,
+          "metric": "CCR",
+          "numerator": 90,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.9590643744356734
+        }
+      },
+      "state_integrity": {
+        "S1_invalid_state_propagation_rate": {
+          "denominator": 30,
+          "metric": "S1-ISPR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S7_rollback_failure_rate": {
+          "denominator": 30,
+          "metric": "S7-RFR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "SIVR_aggregate": {
+          "denominator": 240,
+          "metric": "SIVR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.015753919941558815,
+          "wilson_95_low": 0.0
+        }
+      }
+    },
+    "latency_us": {
+      "count": 270,
+      "max": 220617,
+      "mean": 27829.996296296296,
+      "min": 8443,
+      "p50": 9251,
+      "p95": 187534,
+      "population_stddev": 52973.562579033714
+    },
+    "metrics": {
+      "BRSR": {
+        "denominator": 30,
+        "metric": "BRSR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "CCR": {
+        "denominator": 90,
+        "metric": "CCR",
+        "numerator": 90,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9590643744356734
+      },
+      "FCR": {
+        "denominator": 30,
+        "metric": "FCR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "MESR": {
+        "denominator": 180,
+        "metric": "MESR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.02089549792161305,
+        "wilson_95_low": 0.0
+      },
+      "OCA": {
+        "denominator": 270,
+        "metric": "OCA",
+        "numerator": 270,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9859719604283536
+      },
+      "SIVR": {
+        "denominator": 240,
+        "metric": "SIVR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.015753919941558815,
+        "wilson_95_low": 0.0
+      }
+    },
+    "scenario_breakdown": {
+      "S0": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "commit": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S1": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S2": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S3": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "terminated": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S4": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S5": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "startup-failure": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S6": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "quarantine": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S7": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "abort": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S8": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      }
+    }
+  },
+  "runtime-only": {
+    "effect_families": {
+      "benign_preservation": {
+        "S0_BRSR": {
+          "denominator": 30,
+          "metric": "BRSR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "fail_closed_startup": {
+        "S5_aggregate_FCR": {
+          "denominator": 30,
+          "metric": "FCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S5_malformed_policy_FCR": {
+          "denominator": 15,
+          "metric": "S5-Malformed-FCR",
+          "numerator": 15,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.7961166989641515
+        },
+        "S5_missing_resource_FCR": {
+          "denominator": 15,
+          "metric": "S5-Missing-FCR",
+          "numerator": 15,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.7961166989641515
+        }
+      },
+      "outcome_quarantine_semantics": {
+        "S6_quarantine_rate": {
+          "denominator": 30,
+          "metric": "S6-QR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S7_abort_rate": {
+          "denominator": 0,
+          "metric": "S7-AR",
+          "numerator": 0,
+          "percent": null,
+          "rate": null,
+          "wilson_95_high": null,
+          "wilson_95_low": null
+        }
+      },
+      "policy_binding": {
+        "S8_digest_mismatch_acceptance_rate": {
+          "denominator": 30,
+          "metric": "S8-DMAR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S8_digest_rejection_rate": {
+          "denominator": 30,
+          "metric": "S8-DRR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        }
+      },
+      "runtime_capability_containment": {
+        "S2_filesystem_containment": {
+          "denominator": 30,
+          "metric": "S2-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S3_child_execution_containment": {
+          "denominator": 30,
+          "metric": "S3-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S4_network_containment": {
+          "denominator": 30,
+          "metric": "S4-CCR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "aggregate_CCR": {
+          "denominator": 90,
+          "metric": "CCR",
+          "numerator": 90,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.9590643744356734
+        }
+      },
+      "state_integrity": {
+        "S1_invalid_state_propagation_rate": {
+          "denominator": 30,
+          "metric": "S1-ISPR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S7_rollback_failure_rate": {
+          "denominator": 0,
+          "metric": "S7-RFR",
+          "numerator": 0,
+          "percent": null,
+          "rate": null,
+          "wilson_95_high": null,
+          "wilson_95_low": null
+        },
+        "SIVR_aggregate": {
+          "denominator": 120,
+          "metric": "SIVR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.031019166418703486,
+          "wilson_95_low": 0.0
+        }
+      }
+    },
+    "latency_us": {
+      "count": 270,
+      "max": 209624,
+      "mean": 26679.185185185186,
+      "min": 8429,
+      "p50": 9069,
+      "p95": 165388,
+      "population_stddev": 50294.36431519351
+    },
+    "metrics": {
+      "BRSR": {
+        "denominator": 30,
+        "metric": "BRSR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "CCR": {
+        "denominator": 90,
+        "metric": "CCR",
+        "numerator": 90,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9590643744356734
+      },
+      "FCR": {
+        "denominator": 30,
+        "metric": "FCR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "MESR": {
+        "denominator": 180,
+        "metric": "MESR",
+        "numerator": 90,
+        "percent": 50.0,
+        "rate": 0.5,
+        "wilson_95_high": 0.5722763756728522,
+        "wilson_95_low": 0.4277236243271478
+      },
+      "OCA": {
+        "denominator": 270,
+        "metric": "OCA",
+        "numerator": 270,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9859719604283536
+      },
+      "SIVR": {
+        "denominator": 120,
+        "metric": "SIVR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.031019166418703486,
+        "wilson_95_low": 0.0
+      }
+    },
+    "scenario_breakdown": {
+      "S0": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S1": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S2": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S3": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "terminated": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S4": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S5": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "startup-failure": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S6": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S7": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": false,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S8": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      }
+    }
+  },
+  "transition-only": {
+    "effect_families": {
+      "benign_preservation": {
+        "S0_BRSR": {
+          "denominator": 30,
+          "metric": "BRSR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "fail_closed_startup": {
+        "S5_aggregate_FCR": {
+          "denominator": 30,
+          "metric": "FCR",
+          "numerator": 15,
+          "percent": 50.0,
+          "rate": 0.5,
+          "wilson_95_high": 0.6684587435946623,
+          "wilson_95_low": 0.33154125640533766
+        },
+        "S5_malformed_policy_FCR": {
+          "denominator": 15,
+          "metric": "S5-Malformed-FCR",
+          "numerator": 15,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 1.0,
+          "wilson_95_low": 0.7961166989641515
+        },
+        "S5_missing_resource_FCR": {
+          "denominator": 15,
+          "metric": "S5-Missing-FCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.20388330103584862,
+          "wilson_95_low": 0.0
+        }
+      },
+      "outcome_quarantine_semantics": {
+        "S6_quarantine_rate": {
+          "denominator": 30,
+          "metric": "S6-QR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        },
+        "S7_abort_rate": {
+          "denominator": 30,
+          "metric": "S7-AR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "policy_binding": {
+        "S8_digest_mismatch_acceptance_rate": {
+          "denominator": 30,
+          "metric": "S8-DMAR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S8_digest_rejection_rate": {
+          "denominator": 30,
+          "metric": "S8-DRR",
+          "numerator": 30,
+          "percent": 100.0,
+          "rate": 1.0,
+          "wilson_95_high": 0.9999999999999999,
+          "wilson_95_low": 0.8864866068260312
+        }
+      },
+      "runtime_capability_containment": {
+        "S2_filesystem_containment": {
+          "denominator": 30,
+          "metric": "S2-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S3_child_execution_containment": {
+          "denominator": 30,
+          "metric": "S3-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S4_network_containment": {
+          "denominator": 30,
+          "metric": "S4-CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "aggregate_CCR": {
+          "denominator": 90,
+          "metric": "CCR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.04093562556432678,
+          "wilson_95_low": 0.0
+        }
+      },
+      "state_integrity": {
+        "S1_invalid_state_propagation_rate": {
+          "denominator": 30,
+          "metric": "S1-ISPR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "S7_rollback_failure_rate": {
+          "denominator": 30,
+          "metric": "S7-RFR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.11351339317396876,
+          "wilson_95_low": 0.0
+        },
+        "SIVR_aggregate": {
+          "denominator": 135,
+          "metric": "SIVR",
+          "numerator": 0,
+          "percent": 0.0,
+          "rate": 0.0,
+          "wilson_95_high": 0.02766795201752491,
+          "wilson_95_low": 0.0
+        }
+      }
+    },
+    "latency_us": {
+      "count": 270,
+      "max": 15037,
+      "mean": 9702.888888888889,
+      "min": 8382,
+      "p50": 9195,
+      "p95": 13419,
+      "population_stddev": 1444.1757775780654
+    },
+    "metrics": {
+      "BRSR": {
+        "denominator": 30,
+        "metric": "BRSR",
+        "numerator": 30,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 0.9999999999999999,
+        "wilson_95_low": 0.8864866068260312
+      },
+      "CCR": {
+        "denominator": 90,
+        "metric": "CCR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.04093562556432678,
+        "wilson_95_low": 0.0
+      },
+      "FCR": {
+        "denominator": 30,
+        "metric": "FCR",
+        "numerator": 15,
+        "percent": 50.0,
+        "rate": 0.5,
+        "wilson_95_high": 0.6684587435946623,
+        "wilson_95_low": 0.33154125640533766
+      },
+      "MESR": {
+        "denominator": 180,
+        "metric": "MESR",
+        "numerator": 90,
+        "percent": 50.0,
+        "rate": 0.5,
+        "wilson_95_high": 0.5722763756728522,
+        "wilson_95_low": 0.4277236243271478
+      },
+      "OCA": {
+        "denominator": 270,
+        "metric": "OCA",
+        "numerator": 270,
+        "percent": 100.0,
+        "rate": 1.0,
+        "wilson_95_high": 1.0,
+        "wilson_95_low": 0.9859719604283536
+      },
+      "SIVR": {
+        "denominator": 135,
+        "metric": "SIVR",
+        "numerator": 0,
+        "percent": 0.0,
+        "rate": 0.0,
+        "wilson_95_high": 0.02766795201752491,
+        "wilson_95_low": 0.0
+      }
+    },
+    "scenario_breakdown": {
+      "S0": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "commit": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 30,
+        "total": 30
+      },
+      "S1": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S2": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S3": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S4": {
+        "malicious_succeeded": 30,
+        "observed_outcomes": {
+          "success": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S5": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "startup-failure": 15,
+          "success": 15
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S6": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "quarantine": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S7": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "abort": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      },
+      "S8": {
+        "malicious_succeeded": 0,
+        "observed_outcomes": {
+          "reject": 30
+        },
+        "security_applicable": true,
+        "state_changed_count": 0,
+        "total": 30
+      }
+    }
+  }
+}
