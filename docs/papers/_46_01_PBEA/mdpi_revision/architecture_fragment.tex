@@ -1,0 +1,21 @@
+\begin{tikzpicture}[
+  box/.style={draw,rounded corners,align=center,text width=4.1cm,minimum height=11mm,font=\small},
+  arr/.style={-{Latex[length=2mm]},thick},node distance=7mm and 10mm]
+\node[box,fill=gray!10] (policy) {Strict policy input\\Resolve policy parents\\and defaults};
+\node[box,right=of policy,fill=gray!10] (plan) {Effective identity and runtime plan\\One immutable worker epoch};
+\node[box,below=of plan,fill=green!8] (install) {Prepare resources; listener\\unveil rules; lock; pledge};
+\node[box,below=of install,fill=green!8] (ready) {Ready only on successful install\\Otherwise: startup failure};
+\node[box,left=of ready,fill=blue!6] (request) {Admitted request\\Check worker policy identity};
+\node[box,below=of request,fill=blue!6] (candidate) {Snapshot domain and trust state\\Authorize; validate; prepare candidate};
+\node[box,below=of candidate,fill=blue!6] (outcome) {Reconcile; route outcome\\Commit / Reject / Abort / Quarantine};
+\node[box,right=of outcome,fill=orange!8] (evidence) {Application evidence\\Separate domain and trust hashes};
+\node[box,below=of evidence,fill=orange!8] (supervisor) {Native termination: supervisor evidence\\Child state unknown unless observed};
+\draw[arr] (policy)--(plan);
+\draw[arr] (plan)--(install);
+\draw[arr] (install)--(ready);
+\draw[arr] (ready)--node[above,font=\small]{ready}(request);
+\draw[arr] (request)--(candidate);
+\draw[arr] (candidate)--(outcome);
+\draw[arr] (outcome)--(evidence);
+\draw[arr,dashed] (ready.east) -- ++(8mm,0) |- (supervisor.east);
+\end{tikzpicture}

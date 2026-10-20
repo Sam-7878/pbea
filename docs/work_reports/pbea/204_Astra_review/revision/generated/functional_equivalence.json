@@ -1,0 +1,23 @@
+{
+  "modes": [
+    "access-only",
+    "transition-only",
+    "runtime-only",
+    "full-pbea",
+    "unbound-composition"
+  ],
+  "raw_source": "benchmark.jsonl",
+  "same_business_mutation": true,
+  "same_input_shape": true,
+  "same_normalized_application_result": true,
+  "same_requested_operation": true,
+  "same_result_state_per_workload": true,
+  "sample_count": 150000,
+  "status": "valid",
+  "unit": "500 sequential operations per independent process block",
+  "workloads": [
+    "state1",
+    "state128",
+    "allowed-io"
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "files_checked": 37,
+  "matching": 37,
+  "checks": [
+    {
+      "original_path": "docs/work_reports/202_pbea_rev_round_1/raw/access-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/202_pbea_rev_round_1/raw/access-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/202_pbea_rev_round_1/raw/full-pbea.jsonl",
+      "mapped_path": "docs/work_reports/pbea/202_pbea_rev_round_1/raw/full-pbea.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/202_pbea_rev_round_1/raw/runtime-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/202_pbea_rev_round_1/raw/runtime-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/202_pbea_rev_round_1/raw/transition-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/202_pbea_rev_round_1/raw/transition-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/comparative_evaluation_report_v3.md",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/comparative_evaluation_report_v3.md",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/aggregate_metrics.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/aggregate_metrics.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/attack_mechanisms.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/attack_mechanisms.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/boundary_results.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/boundary_results.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/boundary_results.json",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/boundary_results.json",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/boundary_results.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/boundary_results.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/comparative_security.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/comparative_security.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/family_metrics.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/family_metrics.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/family_metrics.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/family_metrics.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/metrics.json",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/metrics.json",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/overhead.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/overhead.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/s0_benchmark.json",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/s0_benchmark.json",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/s0_latency.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/s0_latency.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/s0_latency.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/s0_latency.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/scenario_matrix.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/scenario_matrix.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/scenario_matrix.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/scenario_matrix.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/security_metrics.tex",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/security_metrics.tex",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/startup_latency.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/startup_latency.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/generated/startup_summary.json",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/generated/startup_summary.json",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/raw/startup/startup-access-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/raw/startup/startup-access-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/raw/startup/startup-full-pbea.jsonl",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/raw/startup/startup-full-pbea.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/raw/startup/startup-runtime-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/raw/startup/startup-runtime-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/raw/startup/startup-transition-only.jsonl",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/raw/startup/startup-transition-only.jsonl",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/revision_inputs_v2.md",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/revision_inputs_v2.md",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/s0_functional_equivalence.json",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/s0_functional_equivalence.json",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/s0_steady_state_overhead_report_v2.md",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/s0_steady_state_overhead_report_v2.md",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "docs/work_reports/203_pbea_rev_round_2/round_1_1/s7_raw_audit.csv",
+      "mapped_path": "docs/work_reports/pbea/203_pbea_rev_round_2/round_1_1/s7_raw_audit.csv",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/artifact_manifest.py",
+      "mapped_path": "evaluation/comparative/artifact_manifest.py",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/compute_security_metrics.py",
+      "mapped_path": "evaluation/comparative/compute_security_metrics.py",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/generate_report.py",
+      "mapped_path": "evaluation/comparative/generate_report.py",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/generate_tables.py",
+      "mapped_path": "evaluation/comparative/generate_tables.py",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/report_consistency_test.py",
+      "mapped_path": "evaluation/comparative/report_consistency_test.py",
+      "exists": true,
+      "hash_matches": true
+    },
+    {
+      "original_path": "evaluation/comparative/validate_records.py",
+      "mapped_path": "evaluation/comparative/validate_records.py",
+      "exists": true,
+      "hash_matches": true
+    }
+  ]
+}
