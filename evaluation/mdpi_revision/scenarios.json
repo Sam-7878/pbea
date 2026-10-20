@@ -1,0 +1,10 @@
+{
+  "campaign": "MDPI-2026-10-20",
+  "security": {"modes": ["unbound-composition", "full-pbea"], "repetitions": 30, "cases": ["BIND-aligned", "BIND-runtime-epoch", "BIND-stale-evidence", "BIND-inheritance-drift", "BIND-request-version", "BIND-equal-id-wrong-install", "BOUND-send-before-abort", "BOUND-preopened-fd", "SERVICE-sequence"]},
+  "benchmark": {"modes": ["access-only", "transition-only", "runtime-only", "full-pbea", "unbound-composition"], "independent_blocks_per_cell": 20, "mode_schedule": "rotating offset per block", "workloads": ["state1", "state128", "allowed-io"], "warmup": 100, "samples_per_block": 500},
+  "attacker_control": "synthetic requests, declared component policy epoch/identity skew; wrong-install case explicitly models trusted mapper defect",
+  "trusted_components": ["Rust verifier and supervisor", "policy loader/mapper except explicit fault case", "OpenBSD kernel"],
+  "state_scope": "single worker serial in-memory domain and process-local trust state",
+  "observers": {"state": "child before/after serialized state observed through supervisor pipe", "send": "loopback receiving socket", "file": "real read on controlled synthetic fixture", "termination": "supervisor retains failed child record; unknown child state is omitted"},
+  "interpretation": {"BIND-aligned": "B3 and P should preserve benign result", "BIND-runtime-epoch": "P checks component identity equality; B3 does not", "BIND-stale-evidence": "P checks evidence identity before dispatch", "BIND-inheritance-drift": "models a stale resolved-policy epoch, not a fault in the resolver algorithm", "BIND-request-version": "request-worker epoch mismatch", "BIND-equal-id-wrong-install": "both may allow forbidden read: no remote attestation", "BOUND-send-before-abort": "allowed receiver effect can survive candidate Abort", "BOUND-preopened-fd": "pathname confinement does not revoke already-open descriptor", "SERVICE-sequence": "reserve, oversubscribe, duplicate, injected abort, cancel, repeated cancel"}
+}

@@ -86,3 +86,20 @@ fn linux_skeleton_compiles_and_refuses_enforcement() {
     p.process_constraints.os_backend = OsBackend::Linux;
     assert!(poa_sandbox::LinuxBackend.validate_policy(&p).is_err());
 }
+
+#[test]
+fn policy_cannot_change_between_prepare_and_install() {
+    let mut startup = StartupEnforcement::default();
+    let first = policy(DeploymentMode::Development);
+    startup.prepare(&NoOpDevelopmentBackend, &first).unwrap();
+    startup.listener_initialized = true;
+    let mut second = first.clone();
+    second.version = "2.0.0".into();
+    assert!(
+        startup
+            .enforce_after_listener(&NoOpDevelopmentBackend, &second)
+            .is_err()
+    );
+    assert!(!startup.business_loop_entered);
+    assert!(!startup.filesystem_applied);
+}

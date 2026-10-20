@@ -3,6 +3,7 @@ pub mod digest;
 pub mod inheritance;
 pub mod loader;
 pub mod model;
+pub mod strict_json;
 pub mod validator;
 
 pub use canonical::{canonicalize, canonicalize_value};

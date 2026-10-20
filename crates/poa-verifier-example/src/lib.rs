@@ -16,7 +16,9 @@ use serde_json::Value;
 use sha2::{Digest, Sha256};
 
 pub mod adversarial;
+pub mod binding;
 pub mod fault_injection;
+pub mod inventory;
 pub mod mode;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

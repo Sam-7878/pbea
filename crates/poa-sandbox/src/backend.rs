@@ -33,6 +33,7 @@ pub trait ProcessConstraintBackend {
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct StartupEnforcement {
+    pub prepared_policy_digest: Option<String>,
     pub resources_prepared: bool,
     pub listener_initialized: bool,
     pub filesystem_applied: bool,
@@ -48,6 +49,10 @@ impl StartupEnforcement {
     ) -> Result<(), EnforcementError> {
         backend.validate_policy(policy)?;
         backend.prepare_resources(policy)?;
+        self.prepared_policy_digest = Some(
+            poa_protocol::policy_digest(policy)
+                .map_err(|e| EnforcementError::InvalidPolicy(e.to_string()))?,
+        );
         self.resources_prepared = true;
         Ok(())
     }
@@ -65,6 +70,13 @@ impl StartupEnforcement {
         if !self.listener_initialized {
             return Err(EnforcementError::Resource(
                 "listener must be initialized before sandbox".into(),
+            ));
+        }
+        let digest = poa_protocol::policy_digest(policy)
+            .map_err(|e| EnforcementError::InvalidPolicy(e.to_string()))?;
+        if self.prepared_policy_digest.as_deref() != Some(digest.as_str()) {
+            return Err(EnforcementError::InvalidPolicy(
+                "policy changed between preparation and runtime installation".into(),
             ));
         }
         backend.apply_filesystem_constraints(&policy.process_constraints)?;

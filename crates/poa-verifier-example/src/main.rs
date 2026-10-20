@@ -7,6 +7,7 @@ use anyhow::{Context, bail};
 use poa_protocol::{PolicyRepository, load_and_validate, load_schema};
 use poa_sandbox::{OpenBsdBackend, StartupEnforcement};
 use poa_verifier_example::Verifier;
+use poa_verifier_example::binding::{RuntimePlan, check_identity_contract};
 
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
@@ -29,6 +30,13 @@ fn main() -> anyhow::Result<()> {
     let mut verifier = Verifier::new(effective.clone(), request_schema)?;
 
     let backend = OpenBsdBackend;
+    let plan = RuntimePlan::from_policy(&effective)?;
+    check_identity_contract(
+        verifier.policy_digest(),
+        verifier.policy_digest(),
+        &plan.policy_id,
+        verifier.policy_digest(),
+    )?;
     let mut startup = StartupEnforcement::default();
     startup
         .prepare(&backend, &effective)
@@ -44,8 +52,11 @@ fn main() -> anyhow::Result<()> {
         .enforce_after_listener(&backend, &effective)
         .context("fail-closed sandbox application")?;
     eprintln!(
-        "BUSINESS_LOOP_ENTERED policy_digest={}",
-        verifier.policy_digest()
+        "BUSINESS_LOOP_ENTERED policy_digest={} epoch={} backend={} runtime_plan_id={}",
+        verifier.policy_digest(),
+        plan.policy_epoch,
+        plan.backend,
+        plan.plan_id
     );
 
     for stream in listener.incoming() {
